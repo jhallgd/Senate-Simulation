@@ -1,0 +1,37 @@
+version: "2.20.2"
+
+name: senate-simulation
+
+services:
+    database:
+        image: mysql:latest
+        ports: 
+            - "3307:3306"
+        networks:
+            - main_net
+        environment:
+            MYSQL_DATABASE: "senate_sim"
+            MYSQL_ROOT_PASSWORD: "test123"
+            MYSQL_USER: "sim_admin"
+            MYSQL_PASSWORD: "test123"
+        volumes:
+            - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    
+    client:
+        build:
+            dockerfile: ./Docker/blog-client.Dockerfile
+        ports: 
+            - "80:80"
+        networks:
+            - main_net
+        volumes:
+            - ./src/:/var/www/html/
+            
+networks:
+    main_net:
+        driver: bridge
+        driver_opts:
+            com.docker.network.bridge.host_binding_ipv4: "127.0.0.2"
+    
+    
+        
