@@ -5,10 +5,14 @@ include_once($ROOT . "components/header_menu.php");
 if (!isset($_SESSION['se'])) {
     echo '<p>You need to login.</p>';
 } else {
-    $senator = $cf->getSenator($_SESSION['se']->get_id());
-    $co_id = $senator->get_co_id();
-    if (is_null($co_id)) {
-        echo 'You have not been assigned a committee yet. Return to the <a href="'.$ROOT.'pages/user_profile.php">Portal Page.</a>.';
+    if(isset($_GET["c"])){
+        $co_id = (int)$_GET["c"];
+    }else{
+        $co_id = 0;
+    }
+    
+    if($co_id == 0){
+        echo 'There is no committee.continue to <a href="'.$ROOT.'pages/user_profile.php">Portal Page</a>.';
     } else {
         $committee = $cf->get_committee($co_id);
         echo '<div class = center_box>';

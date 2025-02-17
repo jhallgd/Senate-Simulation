@@ -8,12 +8,12 @@ class Committees
 
     private array $committee_bills;
 
-    public function __construct(int $id, string $committee_name, string $committee_location, array $committee_bills)
+    public function __construct(array $data, array $bills)
     {
-        $this->id = $id;
-        $this->committee_name = $committee_name;
-        $this->committee_location = $committee_location;
-        $this->committee_bills = $committee_bills;
+        $this->id = $data['co_id'];
+        $this->committee_name = $data['co_name'];
+        $this->committee_location = $data['co_location'];
+        $this->committee_bills = $bills;
     }
 
     public function get_id(): int
@@ -36,6 +36,9 @@ class Committees
         return $this->committee_bills;
     }
 
+    public function get_agenda_url(): string{
+        return '<a href = /pages/agenda.php?c='.$this->id.'>Agenda</a>';
+    }
 }
 
 ?>

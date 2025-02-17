@@ -4,16 +4,14 @@ class Bills
 {
     private int $bill_id;
     private string $bill_title;
-
     private string $bill_short_text;
-
     private string $bill_url;
 
-    public function __construct(int $bill_id, string $bill_title, string $bill_short_text, string $bill_url){
-        $this->bill_id = $bill_id;
-        $this->bill_title = $bill_title;
-        $this->bill_short_text = $bill_short_text;
-        $this->bill_url = $bill_url;
+    public function __construct($data){
+        $this->bill_id = $data['bl_id'];
+        $this->bill_title = $data['bl_title'];
+        $this->bill_short_text = $data['bl_short_text'];
+        $this->bill_url = $data['bl_url'];
     }
 
     public function get_bill_id(): int{
