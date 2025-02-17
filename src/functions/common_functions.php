@@ -78,9 +78,9 @@ class common_functions
         return $this->db->check_senator_id($se_id);
     }
 
-    public function getSenator(int $se_id)
+    public function getSenator(int $se_id):Senators
     {
-        return $this->db->get_senator($se_id);
+        return $this->db->get_senator_object($se_id);
     }
 
     public function get_parties(){
@@ -110,12 +110,13 @@ class common_functions
     }
 
     public function get_committee_senator_id(int $se_id){
-        $data = $this->db->get_committee_senator_id($se_id);
+        $data = $this->db->get_senator_committees_object_id($se_id);
         return $data;
     }
 
     public function get_committee(int $co_id): Committees{
-        return $this->db->get_committee($co_id);
+        $committees = $this->db->get_committee($co_id);
+        return $committees[0];
     }
 
     public function get_party(int $pa_id): Parties{
@@ -125,8 +126,9 @@ class common_functions
     public function create_party_senators(int $pa_id) {
         $dataset =  $this->db->create_party_senators($pa_id);
         $table_data = [];
-        foreach($dataset as $data){
-            array_push($table_data, [$data->get_full_name(), $data->get_title(), $data->get_committee()]);
+        foreach($dataset as $senator){
+                array_push($table_data, [$senator->get_full_name(), $senator->get_title(), $senator->get_committees()]);
+            
         }
         $this->create_custom_table(['Member', 'Title','Committee'],  $table_data); 
     }

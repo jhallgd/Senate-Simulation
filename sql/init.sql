@@ -60,10 +60,8 @@ CREATE TABLE `Senators`
     `se_first_name`   TEXT NOT NULL,
 	`se_last_name`    TEXT NOT NULL,
     `se_title`        TEXT NOT NULL,
-    `se_co_id`        INT UNSIGNED,
     `se_pa_id`        INT UNSIGNED,
     PRIMARY KEY (`se_id`),
-    CONSTRAINT FK_Senators_Committee FOREIGN KEY (`se_co_id`) REFERENCES Committees(`co_id`),
     CONSTRAINT FK_Senators_Parties FOREIGN KEY (`se_pa_id`) REFERENCES Parties(`pa_id`)
 ) ENGINE = InnoDB;
 
@@ -127,6 +125,36 @@ CREATE TABLE `CommitteesBills`
 
 ALTER TABLE `PartiesBills`
     AUTO_INCREMENT = 1001;
+
+
+-- CommitteePositionTypes Table
+CREATE TABLE `CommitteePositionTypes`
+(
+    `cpt_id` 	      INT UNSIGNED AUTO_INCREMENT,
+    `cpt_name`        TEXT NOT NULL,
+    `cpt_order`       INT NOT NULL,
+    PRIMARY KEY (`cpt_id`)
+) ENGINE = InnoDB;
+
+ALTER TABLE `CommitteePositionTypes`
+    AUTO_INCREMENT = 1001;
+
+
+-- SenatorsCommittees Table
+CREATE TABLE `SenatorsCommittees`
+(
+    `sc_id` 	      INT UNSIGNED AUTO_INCREMENT,
+    `sc_cpt_id`       INT UNSIGNED NOT NULL,
+    `sc_se_id`        INT UNSIGNED NOT NULL,
+    `sc_co_id`        INT UNSIGNED NOT NULL,
+    PRIMARY KEY (`sc_id`),
+    CONSTRAINT FK_SenatorsCommittees_CommitteePositionTypes FOREIGN KEY (`sc_cpt_id`) REFERENCES CommitteePositionTypes(`cpt_id`),
+    CONSTRAINT FK_SenatorsCommittees_Senators FOREIGN KEY (`sc_se_id`) REFERENCES Senators(`se_id`),
+    CONSTRAINT FK_SenatorsCommittees_Committees FOREIGN KEY (`sc_co_id`) REFERENCES Committees(`co_id`)
+) ENGINE = InnoDB;
+
+ALTER TABLE `SenatorsCommittees`
+    AUTO_INCREMENT = 1001;
 	
 -- Insert Test Data
 
@@ -139,12 +167,16 @@ INSERT INTO `Parties` (pa_name, pa_location, pa_color) VALUES ('Orange', 'Large 
 INSERT INTO `Bills` (bl_title, bl_short_text, bl_url) VALUES ('SB 101', 'Intro Bill.', 'http://www.google.com');
 INSERT INTO `Bills` (bl_title, bl_short_text, bl_url) VALUES ('SB 102', 'The Second Bill.', 'http://www.yahoo.com');
 
-INSERT INTO `Senators` (se_first_name, se_last_name, se_title, se_co_id, se_pa_id) VALUES ('Jane', 'Smith', 'Leader', 1001, 1001);
+INSERT INTO `Senators` (se_first_name, se_last_name, se_title, se_pa_id) VALUES ('Jane', 'Smith', 'Leader', 1001);
 INSERT INTO `Senators` (se_first_name, se_last_name, se_title) VALUES ('Pete', 'Roberts', 'Whip');
 
 INSERT INTO `Votes` (vo_vote, vo_se_id, vo_bl_id) VALUES ('ABS', 1001, 1001);
 
 INSERT INTO `Settings` (se_active_bill) VALUES ( 1001);
+
+INSERT INTO `CommitteePositionTypes`(cpt_name, cpt_order) VALUES ('Chair', 1);
+INSERT INTO `CommitteePositionTypes`(cpt_name, cpt_order) VALUES ('Vice-Chair', 2);
+INSERT INTO `CommitteePositionTypes`(cpt_name, cpt_order) VALUES ('Member', 3);
 
 INSERT INTO `PartiesBills`(pb_view, pb_pa_id, pb_bl_id) VALUES ('FOR', 1001, 1001);
 INSERT INTO `PartiesBills`(pb_view, pb_pa_id, pb_bl_id) VALUES ('AGAINST', 1002, 1001);
@@ -153,3 +185,5 @@ INSERT INTO `PartiesBills`(pb_view, pb_pa_id, pb_bl_id) VALUES ('FOR', 1002, 100
 
 INSERT INTO `CommitteesBills`(cb_co_id, cb_bl_id) VALUES(1001, 1002);
 INSERT INTO `CommitteesBills`(cb_co_id, cb_bl_id) VALUES(1002, 1001);
+
+INSERT INTO `SenatorsCommittees`(sc_cpt_id, sc_se_id, sc_co_id) VALUES(1001, 1001, 1001);

@@ -9,19 +9,14 @@ if (!isset($_SESSION['se'])) {
     echo '<h1>Senator ' . $senator->get_last_name() . '</h1>';
 
     echo '<h2>Party:</h2>';
-    if ($senator->get_party() == 'none') {
+    if ($senator->get_party() === 'none') {
         echo '<h3>Party Missing</h3><p><a href = "' . $ROOT . 'pages/join_party.php">Select Party</a></p>';
     } else {
         echo '<h3>' . $senator->get_party() . ' </h3>';
         echo '<p><a href = "' . $ROOT . 'pages/party.php">View Party Informaiton</a></p>';
     }
-    echo '<h2>Committee:</h2>';
-    if ($senator->get_committee() == 'none') {
-        echo '<p>You have not been assigned a committee yet.</p>';
-    } else {
-        echo '<h3>' . $senator->get_committee() . '</h3>';
-        echo '<p><a href = "'.$ROOT.'pages/agenda.php"> View '.$senator->get_committee().' Agenda</a></p>'; 
-    }
+    $senator->show_committees();
+    
     echo '<h2>Bills</h2>';
     $cf->create_bill_table();
 }
