@@ -13,16 +13,15 @@ if(isset($_GET["s"])){
     $se_id = 0;
 }
 
-if($se_id == 0 OR $cf->checkSenateId($se_id) == false){
+if($se_id == 0 OR $da->check_senate_id($se_id) == false){
     $se_id = 0;
 }
 
 if($se_id == 0){
     echo 'Login Failed. Please try again.';
 }else{
-    $senator = $cf->getSenator($se_id);
-    $_SESSION["se"] = $senator;
-    echo 'Login Success contine to <a href="'.$ROOT.'pages/user_profile.php">Portal Page</a>.';
+    $_SESSION["se"] = $se_id;
+    echo 'Login Success contine to <a href="/pages/user_profile.php">Portal Page</a>.';
 
 }
 echo '</div>';

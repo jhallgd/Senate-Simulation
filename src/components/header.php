@@ -1,5 +1,7 @@
 <?php
-require(dirname(__DIR__) . '/objects/senators.php');
+$ROOT = dirname(__DIR__);
+require($ROOT . '/functions/data_access.php');
+$da = new data_access();
 
 if (!isset($_SESSION)) {
     session_start();
@@ -12,13 +14,7 @@ if (!isset($_SESSION)) {
     <meta charset="utf-8">
     <title>Legislative Simulation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="<?php echo $ROOT . '/css/userStyle.css'; ?>" rel="stylesheet" type="text/css">
+    <link href="/../css/userStyle.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
-    <?php
-
-    require(dirname(__DIR__) . '/functions/common_functions.php');
-
-    $cf = new common_functions();
-    ?>

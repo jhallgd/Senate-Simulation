@@ -14,7 +14,7 @@ if (!isset($_SESSION['se'])) {
     if($co_id == 0){
         echo 'There is no committee.continue to <a href="'.$ROOT.'pages/user_profile.php">Portal Page</a>.';
     } else {
-        $committee = $cf->get_committee($co_id);
+        $committee = $da->get_committee_by_id($co_id);
         echo '<div class = center_box>';
         echo '<h1>' . $committee->get_committee_name() . '</h1>';
         echo '<h3> Location: ' . $committee->get_committee_location() . '</h3>';
@@ -24,9 +24,9 @@ if (!isset($_SESSION['se'])) {
         echo '<li>Call to order</li>';
         echo '<li>Consideration of the following legislation:</li>';
         echo '<ul>';
-        foreach ($committee->get_committee_bills() as $bill) {
+        foreach ($da->get_bills_by_co_id($committee->get_id()) as $bill) {
             echo '<li>';
-            $bill->create_bill_link();
+            echo $bill->create_bill_link();
             echo '</li>';
         }
         echo '</ul>';

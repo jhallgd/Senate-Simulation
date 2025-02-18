@@ -1,5 +1,5 @@
 <?php
-class Parties{
+class parties{
     private int $id;
     private string $party_name;
     private string $party_location;

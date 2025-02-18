@@ -1,6 +1,6 @@
 <?php
 
-class Bills
+class bills
 {
     private int $bill_id;
     private string $bill_title;
@@ -28,7 +28,7 @@ class Bills
     }
 
     public function create_bill_link(){
-        echo '<a href = "'.$this->get_bill_url().'" target="_blank">'.$this->get_bill_title(). ': '. $this->get_bill_short_text() .'</a>';
+        return '<a href = "'.$this->get_bill_url().'" target="_blank">'.$this->get_bill_title(). '</a>'.': '. $this->get_bill_short_text();
     }
 }
 

@@ -1,5 +1,5 @@
 <?php
-class Senators
+class senators_committees
 {
     private int $id;
     private string $first_name;
