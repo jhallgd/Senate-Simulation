@@ -1,11 +1,11 @@
 <?php
-class BillsParties extends Bills{
+class bills_parties extends bills{
     private int $pa_id;
     private string $pa_name;
     private string $pa_view;
 
-    public function __construct(array $data, array $bill_data){
-        parent::__construct($bill_data);
+    public function __construct(array $data){
+        parent::__construct($data);
         $this->pa_id = $data['pa_id'];
         $this->pa_name = $data['pa_name'];
         $this->pa_view = $data['pb_view'];

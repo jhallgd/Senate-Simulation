@@ -1,11 +1,11 @@
 <?php
-class Senators_Committees extends Committees
+class committees_senators extends committees
 {
     private string $position;
     
-    public function __construct(array $data, array $committee_data, array $bills)
+    public function __construct(array $data)
     {
-        parent::__construct($committee_data, $bills);
+        parent::__construct($data);
         $this->position = $data['cpt_name'];
     }
 

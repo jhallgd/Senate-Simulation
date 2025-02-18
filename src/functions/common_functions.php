@@ -11,8 +11,6 @@ class common_functions
      */
     public function __construct()
     {
-        require(dirname(__DIR__) . '/functions/db.php');
-        $this->db = new database();
     }
 
     /**
@@ -71,66 +69,6 @@ class common_functions
 
         echo $output;
 
-    }
-
-    public function checkSenateId(int $se_id)
-    {
-        return $this->db->check_senator_id($se_id);
-    }
-
-    public function getSenator(int $se_id):Senators
-    {
-        return $this->db->get_senator_object($se_id);
-    }
-
-    public function get_parties(){
-        return $this->db->get_parties();
-    }
-
-    public function create_party_views(int $pa_id){
-        $data = $this->db->get_party_views($pa_id);
-        $table = [];
-        foreach ($data as $bill) {
-            array_push($table, [$bill->get_bill_title(), $bill->get_bill_short_text(), '<a href = "'.$bill->get_bill_url().'">Click Here</a>', $bill->get_party_view()]);
-        }
-        $this->create_custom_table(['Bill', 'Bill Text', 'Bill Url', 'Party View'],  $table); 
-    }
-
-    public function check_party_id(int $pa_id){
-        return $this->db->check_party_id($pa_id);
-    }
-
-    public function change_party(int $se_id, int $pa_id){
-        return $this->db->change_party($se_id, $pa_id);
-    }
-
-    public function create_bill_table(){
-        $data = $this->db->get_bill_data();
-        $this->create_custom_table(['Bill', 'Bill Text', 'Bill URL', 'Bill Location'],  $data); 
-    }
-
-    public function get_committee_senator_id(int $se_id){
-        $data = $this->db->get_senator_committees_object_id($se_id);
-        return $data;
-    }
-
-    public function get_committee(int $co_id): Committees{
-        $committees = $this->db->get_committee($co_id);
-        return $committees[0];
-    }
-
-    public function get_party(int $pa_id): Parties{
-        return $this->db->get_party($pa_id);
-    }
-
-    public function create_party_senators(int $pa_id) {
-        $dataset =  $this->db->create_party_senators($pa_id);
-        $table_data = [];
-        foreach($dataset as $senator){
-                array_push($table_data, [$senator->get_full_name(), $senator->get_title(), $senator->get_committees()]);
-            
-        }
-        $this->create_custom_table(['Member', 'Title','Committee'],  $table_data); 
     }
 
 

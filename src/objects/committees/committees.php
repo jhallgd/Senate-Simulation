@@ -1,19 +1,17 @@
 <?php
 
-class Committees
+class committees
 {
     private int $id;
     private string $committee_name;
     private string $committee_location;
-
     private array $committee_bills;
 
-    public function __construct(array $data, array $bills)
+    public function __construct(array $data)
     {
         $this->id = $data['co_id'];
         $this->committee_name = $data['co_name'];
         $this->committee_location = $data['co_location'];
-        $this->committee_bills = $bills;
     }
 
     public function get_id(): int
@@ -29,11 +27,6 @@ class Committees
     public function get_committee_location(): string
     {
         return $this->committee_location;
-    }
-
-    public function get_committee_bills(): array
-    {
-        return $this->committee_bills;
     }
 
     public function get_agenda_url(): string{
