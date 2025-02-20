@@ -17,6 +17,17 @@ class senator_dao_implementation implements senator_dao_interface
     {
 
     }
+
+    public function update(senators $senator): bool
+    {
+        $sql = 'UPDATE Senators
+        SET se_first_name = "' . $senator->get_first_name() . '", 
+        se_last_name = "' . $senator->get_last_name() . '", 
+        se_title = "' . $senator->get_title() . '", 
+        se_pa_id = ' . $senator->get_pa_id() . ' 
+        WHERE se_id = ' . $senator->get_id() . ';';
+        return $this->db->update_data($sql);
+    }
     public function find_by_id($senator_id): senators
     {
         $sql = "SELECT se_id, se_first_name, se_last_name, se_title, se_pa_id, pa_name 
@@ -58,16 +69,7 @@ class senator_dao_implementation implements senator_dao_interface
         return $senators;
 
     }
-    public function update(senators $senator): bool
-    {
-        $sql = 'UPDATE Senators
-        SET se_first_name = "' . $senator->get_first_name() . '", 
-        se_last_name = "' . $senator->get_last_name() . '", 
-        se_title = "' . $senator->get_title() . '", 
-        se_pa_id = ' . $senator->get_pa_id() . ' 
-        WHERE se_id = ' . $senator->get_id() . ';';
-        return $this->db->update_data($sql);
-    }
+
 
 }
 

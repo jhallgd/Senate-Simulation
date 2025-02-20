@@ -26,7 +26,7 @@ The Senate Simulation is a project with a goal to educate about the Legislative 
 
 ## License
 
-This project is licensed under MIT License - see the LICENSE.md file for details
+This project is licensed under MIT License - see the [LICENSE.md](docs/LICENSE) file for details
 
 ## Acknowledgments
 

@@ -1,12 +1,18 @@
 
--- Create Tables
 USE senate_sim;
+
+-- Clear Tables
 DROP TABLE IF EXISTS `Committees`;
 DROP TABLE IF EXISTS `Parties`;
 DROP TABLE IF EXISTS `Bills`;
 DROP TABLE IF EXISTS `Senators`;
-DROP TABLE IF EXISTS `Votes`;
 DROP TABLE IF EXISTS `Settings`;
+DROP TABLE IF EXISTS `PartiesBills`;
+DROP TABLE IF EXISTS `CommitteesBills`;
+DROP TABLE IF EXISTS `CommitteePositionTypes`;
+DROP TABLE IF EXISTS `SenatorsCommittees`;
+DROP TABLE IF EXISTS `VoteTypes`;
+DROP TABLE IF EXISTS `Votes`;
 
 -- Committees Table
 
@@ -68,29 +74,15 @@ CREATE TABLE `Senators`
 ALTER TABLE `Senators`
     AUTO_INCREMENT = 1001;
 
--- Votes
-
-CREATE TABLE `Votes`
-(
-    `vo_id` 	      INT UNSIGNED AUTO_INCREMENT,
-	`vo_vote`         TEXT NOT NULL,
-    `vo_se_id`        INT UNSIGNED NOT NULL,
-    `vo_bl_id`        INT UNSIGNED NOT NULL,
-    PRIMARY KEY (`vo_id`),
-    CONSTRAINT FK_Votes_Senators FOREIGN KEY (`vo_se_id`) REFERENCES Senators(`se_id`),
-    CONSTRAINT FK_Votes_Bills FOREIGN KEY (`vo_bl_id`) REFERENCES Bills(`bl_id`)
-) ENGINE = InnoDB;
-
-ALTER TABLE `Votes`
-    AUTO_INCREMENT = 1001;
 
 -- Setings Table
 
 CREATE TABLE `Settings`
 (
-    `se_id` 	      INT UNSIGNED AUTO_INCREMENT,
-    `se_active_bill`  INT,
-	PRIMARY KEY (`se_id`)
+    `st_id` 	        INT UNSIGNED AUTO_INCREMENT,
+    `st_start_session`  BOOLEAN NOT NULL,
+    `st_active_bill`    INT,
+	PRIMARY KEY (`st_id`)
 ) ENGINE = InnoDB;
 
 ALTER TABLE `Settings`
@@ -156,6 +148,34 @@ CREATE TABLE `SenatorsCommittees`
 ALTER TABLE `SenatorsCommittees`
     AUTO_INCREMENT = 1001;
 	
+-- VoteTypes Table
+CREATE TABLE `VoteTypes`
+(
+    `vt_id` 	      INT UNSIGNED AUTO_INCREMENT,
+    `vt_name`         TEXT NOT NULL,
+    `vt_color`        TEXT NOT NULL,
+    PRIMARY KEY (`vt_id`)
+) ENGINE = InnoDB;
+
+ALTER TABLE `VoteTypes`
+    AUTO_INCREMENT = 1001;
+
+-- Votes Table
+CREATE TABLE `Votes`
+(
+    `vo_id` 	      INT UNSIGNED AUTO_INCREMENT,
+    `vo_vt_id`        INT UNSIGNED NOT NULL,
+    `vo_se_id`        INT UNSIGNED NOT NULL,
+    `vo_bl_id`        INT UNSIGNED NOT NULL,
+    PRIMARY KEY (`vo_id`),
+    CONSTRAINT FK_Votes_VoteTypes FOREIGN KEY (`vo_vt_id`) REFERENCES VoteTypes(`vt_id`),
+    CONSTRAINT FK_Votes_Senators FOREIGN KEY (`vo_se_id`) REFERENCES Senators(`se_id`),
+    CONSTRAINT FK_Votes_Bills FOREIGN KEY (`vo_bl_id`) REFERENCES Bills(`bl_id`)
+) ENGINE = InnoDB;
+
+ALTER TABLE `Votes`
+    AUTO_INCREMENT = 1001;
+
 -- Insert Test Data
 
 INSERT INTO `Committees` (co_name, co_location) VALUES ('Budget', 'Main Room');
@@ -170,9 +190,7 @@ INSERT INTO `Bills` (bl_title, bl_short_text, bl_url) VALUES ('SB 102', 'The Sec
 INSERT INTO `Senators` (se_first_name, se_last_name, se_title, se_pa_id) VALUES ('Jane', 'Smith', 'Leader', 1001);
 INSERT INTO `Senators` (se_first_name, se_last_name, se_title) VALUES ('Pete', 'Roberts', 'Whip');
 
-INSERT INTO `Votes` (vo_vote, vo_se_id, vo_bl_id) VALUES ('ABS', 1001, 1001);
-
-INSERT INTO `Settings` (se_active_bill) VALUES ( 1001);
+INSERT INTO `Settings` (st_start_session, st_active_bill) VALUES ( 0, 1001);
 
 INSERT INTO `CommitteePositionTypes`(cpt_name, cpt_order) VALUES ('Chair', 1);
 INSERT INTO `CommitteePositionTypes`(cpt_name, cpt_order) VALUES ('Vice-Chair', 2);
@@ -187,3 +205,13 @@ INSERT INTO `CommitteesBills`(cb_co_id, cb_bl_id) VALUES(1001, 1002);
 INSERT INTO `CommitteesBills`(cb_co_id, cb_bl_id) VALUES(1002, 1001);
 
 INSERT INTO `SenatorsCommittees`(sc_cpt_id, sc_se_id, sc_co_id) VALUES(1001, 1001, 1001);
+
+INSERT INTO `VoteTypes`(vt_name, vt_color) VALUES ('YEA', '#00CD03');
+INSERT INTO `VoteTypes`(vt_name, vt_color) VALUES ('NAY', '#ff0011');
+INSERT INTO `VoteTypes`(vt_name, vt_color) VALUES ('EXC', '#52e0ff');
+INSERT INTO `VoteTypes`(vt_name, vt_color) VALUES ('ABS', '#FFFFFF');
+
+INSERT INTO `Votes` (vo_vt_id, vo_se_id, vo_bl_id) VALUES (1004, 1001, 1001);
+INSERT INTO `Votes` (vo_vt_id, vo_se_id, vo_bl_id) VALUES (1004, 1001, 1002);
+INSERT INTO `Votes` (vo_vt_id, vo_se_id, vo_bl_id) VALUES (1004, 1002, 1001);
+INSERT INTO `Votes` (vo_vt_id, vo_se_id, vo_bl_id) VALUES (1004, 1002, 1002);

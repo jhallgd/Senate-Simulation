@@ -1,71 +1,62 @@
 @charset "utf-8";
 /* CSS Document */
+html,body { 
+	height: 100%; 
+	margin: 0px; 
+	padding: 0px; }
+
 body{
+	font-size: 1.2em;
 	margin: 0px;
 	padding: 0px;
-	background-color: #2f4fc6;
+	background-color: #05060c;
 	color: #FFFFFF;
-	font-family: Consolas, "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", Monaco, "Courier New", "monospace";
+	font-family: "Verdana", "Arial", Sans-serif;
 	font-size: 20px;
-}
-
-.YEA{
-	color: #55db2c;
-	font-size: 25px;
-}
-
-.NAY{
-	color: #ff0011;
-	font-size: 25px;
-}
-
-.ABS{
-	color:#fbff87;
-	font-size: 25px;
-}
-
-.EXC{
-	color:#52e0ff;
-	font-size: 25px;
-}
-
-.YEABD{
-	color: #55db2c;
-	font-size: 40px;
-}
-
-.NAYBD{
-	color: #ff0011;
-	font-size: 40px;
-}
-
-.ABSBD{
-	color:#fbff87;
-	font-size: 40px;
-}
-
-.EXCBD{
-	color:#52e0ff;
-	font-size: 40px;
 }
 
 h1{
 	font-size:  70px;
+	font-weight: 300;
+	color:#fbff87;
+	margin: 0px;
+	font-family: "Courier New", "Lucida Console", monospace;
+}
+
+h2{
+	font-weight: 600;
+	margin: 0px;
+	font-family: "Courier New", "Lucida Console", monospace;
+}
+
+h3{
+	font-size: 1.5em;
+	font-weight: 600;
+	margin: 0px;
+	font-family: "Courier New", "Lucida Console", monospace;
 	color:#fbff87;
 }
 
 
-
-p{
-	
-}
-
 .mainContainer{
-	max-width: 600px;
+	background-color: #2f4fc6;
+	max-width: 500px;
+	height: 100%;
 	margin-left: auto;
 	margin-right: auto;
+	text-align: center;
 }
 
 .inv a:link, .inv a:visited {
 	color: #2f4fc6;
+}
+
+.senators{
+	margin: 10px;
+	width: 100%;
+	text-align: left;
+}
+
+.totals{
+	padding: 0px 15px;
 }

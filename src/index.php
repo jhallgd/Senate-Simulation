@@ -11,9 +11,7 @@ include_once("components/header.php");
 	<p><a href='/functions/actions/login.php?s=1002'>Test 1002</a></p>
 
 
-	<!-- <h1>Tables for Reference</h1>
-	<?php $cf->simpleTable('Bills'); ?>
-	<?php $cf->simpleTable('Senators'); ?>
-	<?php $cf->simpleTable('Parties'); ?> -->
+	<h1>Tables for Reference</h1>
+	<?php $da->show_all_tables(); ?>
 
 	<?php include_once("components/footer.php"); ?>
