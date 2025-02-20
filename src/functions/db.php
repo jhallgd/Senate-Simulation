@@ -37,7 +37,7 @@ class database
 	public function get_all($table_name)
 	{
 		$sql = "SELECT * FROM $table_name;";
-		$data = $this->conn->query($sql);
+		$data = $this->get_data($sql);
 		return $data;
 	}
 
@@ -59,33 +59,6 @@ class database
 		$columns = $this->conn->query($sql);
 		return $columns;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 ?>

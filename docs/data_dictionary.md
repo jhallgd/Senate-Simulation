@@ -48,11 +48,13 @@
 
 
 
-## Settings (se)
+## Settings (st)
 | Attribute        |Key| Data Type | Options                                     | Linked Table             |
 | ---------------- |---| --------- | ------------------------------------------- | ------------------------ |
-| se_id            | P | INT       | UNSIGNED AUTO_INCREMENT                     |                          |
-| se_active_bill   |   | INT       | NOT NULL                                    |                          |
+| st_id            | P | INT       | UNSIGNED AUTO_INCREMENT                     |                          |
+| st_start_session |   | BOOLEAN   |                                             |                          |
+| st_active_bill   |   | INT       |                                             |                          |
+
 
 
 ## PartiesBills (pb)
@@ -63,6 +65,8 @@
 | pb_pa_id         | F | INT       | NOT NULL                                    | Parties                  |
 | pb_bl_id         | F | INT       | NOT NULL                                    | Bills                    |
 
+
+
 ## CommitteesBills (cb)
 | Attribute        |Key| Data Type | Options                                     | Linked Table             |
 | ---------------- |---| --------- | ------------------------------------------- | ------------------------ |
@@ -70,18 +74,40 @@
 | cb_co_id         | F | INT       | NOT NULL                                    | Committees               |
 | cb_bl_id         | F | INT       | NOT NULL                                    | Bills                    |
 
+
+
 ## CommitteePositionTypes (cpt)
 | Attribute        |Key| Data Type | Options                                     | Linked Table             |
 | ---------------- |---| --------- | ------------------------------------------- | ------------------------ |
 | cpt_id           | P | INT       | UNSIGNED AUTO_INCREMENT                     |                          |
-| cpt_name         |   | TEXT      | UNSIGNED AUTO_INCREMENT                     |                          |
+| cpt_name         |   | TEXT      | NOT NULL                                    |                          |
 | cpt_order        |   | INT       | NOT NULL                                    |                          |
+
 
 
 ## SenatorsCommittees (sc)
 | Attribute        |Key| Data Type | Options                                     | Linked Table             |
 | ---------------- |---| --------- | ------------------------------------------- | ------------------------ |
 | sc_id            | P | INT       | UNSIGNED AUTO_INCREMENT                     |                          |
-| sc_cpt_id        | F | INT       | UNSIGNED AUTO_INCREMENT                     | CommitteePositionTypes   |
-| sc_se_id         | F | INT       | NOT NULL                                    | Senators                 |
-| sc_co_id         | F | INT       | NOT NULL                                    | Committees               |
+| sc_cpt_id        | F | INT       | UNSIGNED NOT NULL                           | CommitteePositionTypes   |
+| sc_se_id         | F | INT       | UNSIGNED NOT NULL                           | Senators                 |
+| sc_co_id         | F | INT       | UNSIGNED NOT NULL                           | Committees               |
+
+
+
+## VoteTypes (vt)
+| Attribute        |Key| Data Type | Options                                     | Linked Table             |
+| ---------------- |---| --------- | ------------------------------------------- | ------------------------ |
+| vt_id            | P | INT       | UNSIGNED AUTO_INCREMENT                     |                          |
+| vt_name          |   | TEXT      | NOT NULL                                    |                          |
+| vt_color         |   | TEXT      | NOT NULL                                    |                          |
+
+
+
+## Votes (vo)
+| Attribute        |Key| Data Type | Options                                     | Linked Table             |
+| ---------------- |---| --------- | ------------------------------------------- | ------------------------ |
+| vo_id            | P | INT       | UNSIGNED AUTO_INCREMENT                     |                          |
+| vo_vt_id         | F | INT       | UNSIGNED NOT NULL                           | VoteTypes                |
+| vo_se_id         | F | INT       | UNSIGNED NOT NULL                           | Senators                 |
+| vo_bl_id         | F | INT       | UNSIGNED NOT NULL                           | Bills                    |
