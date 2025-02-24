@@ -49,6 +49,9 @@ require($ROOT . '/dao/vote/vote_type_dao_implementation.php');
 require($ROOT . '/dao/settings/settings_dao_interface.php');
 require($ROOT . '/dao/settings/settings_dao_implementation.php');
 
+require($ROOT . '/dao/admin/admin_dao_interface.php');
+require($ROOT . '/dao/admin/admin_dao_implementation.php');
+
 
 
 class data_access
@@ -65,6 +68,7 @@ class data_access
     private vote_dao_interface $vote_dao;
     private vote_type_dao_interface $vote_type_dao;
     private settings_dao_interface $settings_dao;
+    private admin_dao_interface $admin_dao;
 
 
 
@@ -89,6 +93,8 @@ class data_access
         $this->vote_type_dao = new vote_type_dao_implementation($this->db);
 
         $this->settings_dao = new settings_dao_implementation($this->db);
+
+        $this->admin_dao = new admin_dao_implementation($this->db);
     }
 
     // Senator Functions
@@ -108,6 +114,11 @@ class data_access
         return $this->senator_dao->find_by_id($id);
     }
 
+    public function get_all_senators(): array
+    {
+        return $this->senator_dao->get_all();
+    }
+
     // Committee Functions
     public function get_committee_by_id($co_id): committees
     {
@@ -116,6 +127,10 @@ class data_access
     public function get_committees_by_se_id($se_id): array
     {
         return $this->committee_senator_dao->find_by_se_id($se_id);
+    }
+
+    public function get_all_committees(): array{
+        return $this->committee_dao->get_all();
     }
 
     public function create_commitee_list()
@@ -250,7 +265,7 @@ class data_access
     // Admin Functions
     public function check_admin_login(string $username, string $password): bool
     {
-        return true;
+        return $this->admin_dao->check_by_credentials($username, $password);
     }
 
     // MISC Functions

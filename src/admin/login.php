@@ -2,19 +2,26 @@
 
 
 $ROOT = '../../';
-include_once($ROOT . "components/header.php");
+include_once("admin_header.php");
 
 echo '<div class="mainContainer">';
 echo '<div class="center_box">';
 
-if(isset($_GET["ad"])){
-    $ad_id = (int)$_GET["ad"];
+if(isset($_POST["uname"])){
+    $ad_name = $_POST["uname"];
 }else{
-    $ad_id = 0;
+    $ad_name = 0;
+}
+if(!isset($_POST["pass"])){
+    $ad_name = 0;
 }
 
-if($ad_id == 0){
-    echo 'Login Failed. Please try again.';
+if(!$da->check_admin_login($_POST['uname'], $_POST['pass'])){
+    $ad_name = 0;
+}
+
+if($ad_name == 0){
+    echo 'Login Failed. Please try again. <a href="/admin">Admin Page</a>';
 }else{
     $_SESSION["ad"] = true;
     echo 'Login Success contine to <a href="/admin">Admin Page</a>.';
