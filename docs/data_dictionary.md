@@ -111,3 +111,11 @@
 | vo_vt_id         | F | INT       | UNSIGNED NOT NULL                           | VoteTypes                |
 | vo_se_id         | F | INT       | UNSIGNED NOT NULL                           | Senators                 |
 | vo_bl_id         | F | INT       | UNSIGNED NOT NULL                           | Bills                    |
+
+
+## Admins (ad)
+| Attribute        |Key| Data Type | Options                                     | Linked Table             |
+| ---------------- |---| --------- | ------------------------------------------- | ------------------------ |
+| ad_id            | P | INT       | UNSIGNED AUTO_INCREMENT                     |                          |
+| ad_username      |   | TEXT      | NOT NULL                                    |                          |
+| ad_password      |   | TEXT      | NOT NULL                                    |                          |

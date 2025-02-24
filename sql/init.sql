@@ -13,6 +13,7 @@ DROP TABLE IF EXISTS `CommitteePositionTypes`;
 DROP TABLE IF EXISTS `SenatorsCommittees`;
 DROP TABLE IF EXISTS `VoteTypes`;
 DROP TABLE IF EXISTS `Votes`;
+DROP TABLE IF EXISTS `Admins`;
 
 -- Committees Table
 
@@ -176,6 +177,19 @@ CREATE TABLE `Votes`
 ALTER TABLE `Votes`
     AUTO_INCREMENT = 1001;
 
+
+-- Admins Table
+CREATE TABLE `Admins`
+(
+    `ad_id` 	         INT UNSIGNED AUTO_INCREMENT,
+    `ad_username`        TEXT NOT NULL,
+    `ad_password`        TEXT NOT NULL,
+    PRIMARY KEY (`ad_id`)
+) ENGINE = InnoDB;
+
+ALTER TABLE `Admins`
+    AUTO_INCREMENT = 1001;
+
 -- Insert Test Data
 
 INSERT INTO `Committees` (co_name, co_location) VALUES ('Budget', 'Main Room');
@@ -211,7 +225,9 @@ INSERT INTO `VoteTypes`(vt_name, vt_color) VALUES ('NAY', '#ff0011');
 INSERT INTO `VoteTypes`(vt_name, vt_color) VALUES ('EXC', '#52e0ff');
 INSERT INTO `VoteTypes`(vt_name, vt_color) VALUES ('ABS', '#FFFFFF');
 
-INSERT INTO `Votes` (vo_vt_id, vo_se_id, vo_bl_id) VALUES (1004, 1001, 1001);
-INSERT INTO `Votes` (vo_vt_id, vo_se_id, vo_bl_id) VALUES (1004, 1001, 1002);
-INSERT INTO `Votes` (vo_vt_id, vo_se_id, vo_bl_id) VALUES (1004, 1002, 1001);
-INSERT INTO `Votes` (vo_vt_id, vo_se_id, vo_bl_id) VALUES (1004, 1002, 1002);
+INSERT INTO `Votes`(vo_vt_id, vo_se_id, vo_bl_id) VALUES (1004, 1001, 1001);
+INSERT INTO `Votes`(vo_vt_id, vo_se_id, vo_bl_id) VALUES (1004, 1001, 1002);
+INSERT INTO `Votes`(vo_vt_id, vo_se_id, vo_bl_id) VALUES (1004, 1002, 1001);
+INSERT INTO `Votes`(vo_vt_id, vo_se_id, vo_bl_id) VALUES (1004, 1002, 1002);
+
+INSERT INTO `Admins`(ad_username, ad_password)VALUES('admin', 'test123');

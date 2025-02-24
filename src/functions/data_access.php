@@ -247,6 +247,12 @@ class data_access
         return $this->settings_dao->find_by_id(1001);
     }
 
+    // Admin Functions
+    public function check_admin_login(string $username, string $password): bool
+    {
+        return true;
+    }
+
     // MISC Functions
     public function show_all_tables()
     {
