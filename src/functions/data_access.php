@@ -99,10 +99,21 @@ class data_access
 
     // Senator Functions
 
+  
+    public function create_senator(senators $senator): bool
+    {
+        return $this->senator_dao->create($senator, $this->get_settings()->get_default_vote_type());
+    }
     public function update_senator(senators $senator)
     {
         return $this->senator_dao->update($senator);
     }
+
+    public function delete_senator(senators $senator):bool
+    {
+        return $this->senator_dao->delete($senator);
+    }
+
     public function check_senate_id($id): bool
     {
         $senator = $this->senator_dao->find_by_id($id);
@@ -120,6 +131,22 @@ class data_access
     }
 
     // Committee Functions
+
+    public function create_committee(committees $committee): bool
+    {
+        return $this->committee_dao->create($committee);
+    }
+
+    public function update_committee(committees $committee): bool
+    {
+        return $this->committee_dao->update($committee);
+    }
+
+    public function delete_committee(committees $committee): bool
+    {
+        return $this->committee_dao->delete($committee);
+    }
+
     public function get_committee_by_id($co_id): committees
     {
         return $this->committee_dao->find_by_id($co_id);
@@ -151,6 +178,20 @@ class data_access
 
     //Bill Functions
 
+    public function create_bill(bills $bill): bool{
+        return $this->bill_dao->create($bill,$this->get_settings()->get_default_party_view(),$this->get_settings()->get_default_vote_type());
+    }
+
+    public function update_bill(bills $bill): bool{
+        return $this->bill_dao->update($bill);
+    }
+
+    public function delete_bill(bills $bill): bool{
+        return $this->bill_dao->delete($bill);
+    }
+    public function get_all_bills(): array{
+        return $this->bill_dao->get_all();
+    }
     public function get_bill_by_id($bill_id): bills
     {
         return $this->bill_dao->find_by_id($bill_id);
@@ -261,7 +302,6 @@ class data_access
     {
         return $this->settings_dao->find_by_id(1001);
     }
-
     // Admin Functions
     public function check_admin_login(string $username, string $password): bool
     {

@@ -9,13 +9,15 @@ class senator_dao_implementation implements senator_dao_interface
         $this->db = $db;
     }
 
-    public function create($senator)
-    {
-
+    public function create(senators $senator, int $default_vt):bool{
+        return $this->db->create_senator($senator, $default_vt);
     }
-    public function delete($senator)
+    public function delete(senators $senator):bool
     {
-
+        $votes_sql = 'DELETE FROM `Votes` WHERE vo_se_id = '.$senator->get_id().';';
+        $senator_committees_sql = 'DELETE FROM `SenatorsCommittees` WHERE sc_se_id = '.$senator->get_id().';';
+        $senator_sql = 'DELETE FROM `Senators` WHERE se_id = '.$senator->get_id().';';
+        return $this->db->run_transaction([$votes_sql, $senator_committees_sql,$senator_sql]);
     }
 
     public function update(senators $senator): bool

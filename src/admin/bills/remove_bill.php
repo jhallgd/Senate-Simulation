@@ -1,5 +1,6 @@
 <?php
-include_once("admin_header.php");
+$SUBROOT = "../";
+include_once($SUBROOT . "admin_header.php");
 
 if (!isset($_SESSION['ad'])) {
 
@@ -12,14 +13,15 @@ if (!isset($_SESSION['ad'])) {
     echo '<input type="submit" value="Login">';
     echo '</form>';
 } else {
-    echo '<h1>Welcome Admin</h1>';
-    echo '<p><a href ="/admin/logout.php">Logout</a></p>';
-    echo '<p><a href ="/admin/senators/">Edit Senators</a></p>';
-    echo '<p><a href ="/admin/committees/">Edit Committees</a></p>';
-    echo '<p><a href ="/admin/bills/">Edit Bills</a></p>';
-    echo '<h1>Tables for Reference</h1>';
-	$da->show_all_tables();
+    $bill = $da->get_bill_by_id($_POST["bl_id"]);
+    $check = $da->delete_bill($bill);
+    if ($check) {
+        echo "Successfully Removed. <a href ='/admin/'>Return Home</a>";
+    }else{
+        echo "Failed. <a href ='/admin/'>Return Home</a>";
+    }
+
 }
 
-include_once("footer.php");
+include_once($SUBROOT . "footer.php");
 ?>

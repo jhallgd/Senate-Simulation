@@ -13,10 +13,23 @@ if (!isset($_SESSION['ad'])) {
     echo '<input type="submit" value="Login">';
     echo '</form>';
 } else {
+    echo "<a href ='/admin/'>Return Home</a>";
     echo '<h1>Edit Senator</h1>';
-    $senator = $da->get_senator_by_id($_POST["se_id"]);
+    if ($_POST["se_id"] == -1){
+        $data = [
+            "se_id" => -1,
+            "se_first_name" => "",
+            "se_last_name" => "",
+            "se_title" => "",
+            "se_pa_id" => 0,
+            "pa_name" => ""
+        ];
+        $senator = new senators($data);
+    }else{
+        $senator = $da->get_senator_by_id($_POST["se_id"]);
+    }
+    
     $parties = $da->get_all_parties();
-    $committees = $da->get_all_committees();
     echo '<form action = "update_senator.php" method="post">';
 
     echo '<input type="hidden" id="se_id" name="se_id" value = '.$senator->get_id().'>';

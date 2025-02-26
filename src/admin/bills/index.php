@@ -14,23 +14,23 @@ if (!isset($_SESSION['ad'])) {
     echo '</form>';
 } else {
     echo "<a href ='/admin/'>Return Home</a>";
-    echo '<h1>Senators</h1>';
+    echo '<h1>Bills</h1>';
     
-    $senators = $da->get_all_senators();
-    echo '<form action = "senator_detail.php" method="post">';
-    echo '<input type="hidden" id="se_id" name="se_id" value = -1>';
+    $bills = $da->get_all_bills();
+    echo '<form action = "bill_detail.php" method="post">';
+    echo '<input type="hidden" id="bl_id" name="bl_id" value = -1>';
     echo '<input type="submit" value="Create New" name = "submit">';
     echo '</form></br>';
 
-    foreach ($senators as $senator) {
-        echo '<h3>'.$senator->get_full_name().'</h3>';
-        echo '<form action = "senator_detail.php" method="post">';
-        echo '<input type="hidden" id="se_id" name="se_id" value = '.$senator->get_id().'>';
+    foreach ($bills as $bill) {
+        echo '<h3>'.$bill->get_bill_title().'</h3>';
+        echo '<form action = "bill_detail.php" method="post">';
+        echo '<input type="hidden" id="bl_id" name="bl_id" value = '.$bill->get_bill_id().'>';
         echo '<input type="submit" value="Edit" name = "submit">';
         echo '</form>';
 
-        echo '<form action = "remove_senator.php" method="post">';
-        echo '<input type="hidden" id="se_id" name="se_id" value = '.$senator->get_id().'>';
+        echo '<form action = "remove_bill.php" method="post">';
+        echo '<input type="hidden" id="bl_id" name="bl_id" value = '.$bill->get_bill_id().'>';
         echo '<input type="submit" value="Remove" name = "submit">';
         echo '</form></br>';
     }

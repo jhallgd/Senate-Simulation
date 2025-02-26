@@ -13,20 +13,17 @@ if (!isset($_SESSION['ad'])) {
     echo '<input type="submit" value="Login">';
     echo '</form>';
 } else {
-    list($party_id, $party_name) = explode("%", $_POST['se_pa_id'], 2);
     $data = [
-        "se_id" => $_POST["se_id"],
-        "se_first_name" => $_POST["se_first_name"],
-        "se_last_name" => $_POST["se_last_name"],
-        "se_title" => $_POST["se_title"],
-        "se_pa_id" => (int) $party_id,
-        "pa_name" => $party_name
+        "bl_id" => $_POST["bl_id"],
+        "bl_title" => $_POST["bl_title"],
+        "bl_short_text" => $_POST["bl_short_text"],
+        "bl_url" => $_POST["bl_url"]
     ];
-    $senator = new senators($data);
-    if ($senator->get_id() == -1) {
-        $check = $da->create_senator($senator);
+    $bill = new bills($data);
+    if ($bill->get_bill_id() == -1) {
+        $check = $da->create_bill($bill);
     } else {
-        $check = $da->update_senator($senator);
+        $check = $da->update_bill($bill);
     }
     if ($check) {
         echo "Update Success. <a href ='/admin/'>Return Home</a>";

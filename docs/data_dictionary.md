@@ -48,22 +48,21 @@
 
 
 
-## Settings (st)
+## PartyViewTypes (pvt)
 | Attribute        |Key| Data Type | Options                                     | Linked Table             |
 | ---------------- |---| --------- | ------------------------------------------- | ------------------------ |
-| st_id            | P | INT       | UNSIGNED AUTO_INCREMENT                     |                          |
-| st_start_session |   | BOOLEAN   |                                             |                          |
-| st_active_bill   |   | INT       |                                             |                          |
-
+| pvt_id           | P | INT       | UNSIGNED AUTO_INCREMENT                     |                          |
+| pvt_view         |   | TEXT      | NOT NULL                                    |                          |
+| pvt_color        |   | TEXT      | NOT NULL                                    |                          |
 
 
 ## PartiesBills (pb)
 | Attribute        |Key| Data Type | Options                                     | Linked Table             |
 | ---------------- |---| --------- | ------------------------------------------- | ------------------------ |
 | pb_id            | P | INT       | UNSIGNED AUTO_INCREMENT                     |                          |
-| pb_view          |   | TEXT      | NOT NULL                                    |                          |
-| pb_pa_id         | F | INT       | NOT NULL                                    | Parties                  |
-| pb_bl_id         | F | INT       | NOT NULL                                    | Bills                    |
+| pb_pvt_id        | F | INT       | UNSIGNED NOT NULL                           | PartyViewTypes           |
+| pb_pa_id         | F | INT       | UNSIGNED NOT NULL                           | Parties                  |
+| pb_bl_id         | F | INT       | UNSIGNED NOT NULL                           | Bills                    |
 
 
 
@@ -71,8 +70,8 @@
 | Attribute        |Key| Data Type | Options                                     | Linked Table             |
 | ---------------- |---| --------- | ------------------------------------------- | ------------------------ |
 | cb_id            | P | INT       | UNSIGNED AUTO_INCREMENT                     |                          |
-| cb_co_id         | F | INT       | NOT NULL                                    | Committees               |
-| cb_bl_id         | F | INT       | NOT NULL                                    | Bills                    |
+| cb_co_id         | F | INT       | UNSIGNED NOT NULL                           | Committees               |
+| cb_bl_id         | F | INT       | UNSIGNED NOT NULL                           | Bills                    |
 
 
 
@@ -119,3 +118,13 @@
 | ad_id            | P | INT       | UNSIGNED AUTO_INCREMENT                     |                          |
 | ad_username      |   | TEXT      | NOT NULL                                    |                          |
 | ad_password      |   | TEXT      | NOT NULL                                    |                          |
+
+
+## Settings (st)
+| Attribute        |Key| Data Type | Options                                     | Linked Table             |
+| ---------------- |---| --------- | ------------------------------------------- | ------------------------ |
+| st_id            | P | INT       | UNSIGNED AUTO_INCREMENT                     |                          |
+| st_start_session |   | BOOLEAN   |                                             |                          |
+| st_active_bill   | F | INT       | UNSIGNED                                    | Bills                    |
+| st_default_vt    | F | INT       | UNSIGNED NOT NULL                           | VoteTypes                |
+| st_default_pvt   | F | INT       | UNSIGNED NOT NULL                           | PartyViewTypes           |

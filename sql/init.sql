@@ -76,17 +76,16 @@ ALTER TABLE `Senators`
     AUTO_INCREMENT = 1001;
 
 
--- Setings Table
-
-CREATE TABLE `Settings`
+-- PartyViewTypes Table
+CREATE TABLE `PartyViewTypes`
 (
-    `st_id` 	        INT UNSIGNED AUTO_INCREMENT,
-    `st_start_session`  BOOLEAN NOT NULL,
-    `st_active_bill`    INT,
-	PRIMARY KEY (`st_id`)
+    `pvt_id` 	      INT UNSIGNED AUTO_INCREMENT,
+    `pvt_view`        TEXT NOT NULL,
+    `pvt_color`       TEXT NOT NULL,
+    PRIMARY KEY (`pvt_id`)
 ) ENGINE = InnoDB;
 
-ALTER TABLE `Settings`
+ALTER TABLE `PartyViewTypes`
     AUTO_INCREMENT = 1001;
 
 
@@ -94,10 +93,11 @@ ALTER TABLE `Settings`
 CREATE TABLE `PartiesBills`
 (
     `pb_id` 	      INT UNSIGNED AUTO_INCREMENT,
-    `pb_view`         TEXT NOT NULL,
+    `pb_pvt_id`       INT UNSIGNED NOT NULL,
     `pb_pa_id`        INT UNSIGNED NOT NULL,
     `pb_bl_id`        INT UNSIGNED NOT NULL,
     PRIMARY KEY (`pb_id`),
+    CONSTRAINT FK_PartiesBills_PartyViewTypes FOREIGN KEY (`pb_pvt_id`) REFERENCES PartyViewTypes(`pvt_id`),
     CONSTRAINT FK_PartiesBills_Parties FOREIGN KEY (`pb_pa_id`) REFERENCES Parties(`pa_id`),
     CONSTRAINT FK_PartiesBills_Bills FOREIGN KEY (`pb_bl_id`) REFERENCES Bills(`bl_id`)
 ) ENGINE = InnoDB;
@@ -190,6 +190,27 @@ CREATE TABLE `Admins`
 ALTER TABLE `Admins`
     AUTO_INCREMENT = 1001;
 
+
+
+-- Settings Table
+
+CREATE TABLE `Settings`
+(
+    `st_id` 	        INT UNSIGNED AUTO_INCREMENT,
+    `st_start_session`  BOOLEAN NOT NULL,
+    `st_active_bill`    INT UNSIGNED,
+    `st_default_vt`     INT UNSIGNED NOT NULL,
+    `st_default_pvt`    INT UNSIGNED NOT NULL,
+	PRIMARY KEY (`st_id`),
+    CONSTRAINT FK_Settings_Bills FOREIGN KEY (`st_active_bill`) REFERENCES Bills(`bl_id`),
+    CONSTRAINT FK_Settings_VoteTypes FOREIGN KEY (`st_default_vt`) REFERENCES VoteTypes(`vt_id`)
+) ENGINE = InnoDB;
+
+ALTER TABLE `Settings`
+    AUTO_INCREMENT = 1001;
+
+
+
 -- Insert Test Data
 
 INSERT INTO `Committees` (co_name, co_location) VALUES ('Budget', 'Main Room');
@@ -204,26 +225,28 @@ INSERT INTO `Bills` (bl_title, bl_short_text, bl_url) VALUES ('SB 102', 'The Sec
 INSERT INTO `Senators` (se_first_name, se_last_name, se_title, se_pa_id) VALUES ('Jane', 'Smith', 'Leader', 1001);
 INSERT INTO `Senators` (se_first_name, se_last_name, se_title) VALUES ('Pete', 'Roberts', 'Whip');
 
-INSERT INTO `Settings` (st_start_session, st_active_bill) VALUES ( 0, 1001);
-
 INSERT INTO `CommitteePositionTypes`(cpt_name, cpt_order) VALUES ('Chair', 1);
 INSERT INTO `CommitteePositionTypes`(cpt_name, cpt_order) VALUES ('Vice-Chair', 2);
 INSERT INTO `CommitteePositionTypes`(cpt_name, cpt_order) VALUES ('Member', 3);
 
-INSERT INTO `PartiesBills`(pb_view, pb_pa_id, pb_bl_id) VALUES ('FOR', 1001, 1001);
-INSERT INTO `PartiesBills`(pb_view, pb_pa_id, pb_bl_id) VALUES ('AGAINST', 1002, 1001);
-INSERT INTO `PartiesBills`(pb_view, pb_pa_id, pb_bl_id) VALUES ('AGAINST', 1001, 1002);
-INSERT INTO `PartiesBills`(pb_view, pb_pa_id, pb_bl_id) VALUES ('FOR', 1002, 1002);
+INSERT INTO `PartyViewTypes`(pvt_view, pvt_color) VALUES ('NEUTRAL', '#FFFFFF');
+INSERT INTO `PartyViewTypes`(pvt_view, pvt_color) VALUES ('FOR', '#00CD03');
+INSERT INTO `PartyViewTypes`(pvt_view, pvt_color) VALUES ('AGAINST', '#ff0011');
+
+INSERT INTO `PartiesBills`(pb_pvt_id, pb_pa_id, pb_bl_id) VALUES (1002, 1001, 1001);
+INSERT INTO `PartiesBills`(pb_pvt_id, pb_pa_id, pb_bl_id) VALUES (1003, 1002, 1001);
+INSERT INTO `PartiesBills`(pb_pvt_id, pb_pa_id, pb_bl_id) VALUES (1003, 1001, 1002);
+INSERT INTO `PartiesBills`(pb_pvt_id, pb_pa_id, pb_bl_id) VALUES (1002, 1002, 1002);
 
 INSERT INTO `CommitteesBills`(cb_co_id, cb_bl_id) VALUES(1001, 1002);
 INSERT INTO `CommitteesBills`(cb_co_id, cb_bl_id) VALUES(1002, 1001);
 
 INSERT INTO `SenatorsCommittees`(sc_cpt_id, sc_se_id, sc_co_id) VALUES(1001, 1001, 1001);
 
+INSERT INTO `VoteTypes`(vt_name, vt_color) VALUES ('ABS', '#FFFFFF');
 INSERT INTO `VoteTypes`(vt_name, vt_color) VALUES ('YEA', '#00CD03');
 INSERT INTO `VoteTypes`(vt_name, vt_color) VALUES ('NAY', '#ff0011');
 INSERT INTO `VoteTypes`(vt_name, vt_color) VALUES ('EXC', '#52e0ff');
-INSERT INTO `VoteTypes`(vt_name, vt_color) VALUES ('ABS', '#FFFFFF');
 
 INSERT INTO `Votes`(vo_vt_id, vo_se_id, vo_bl_id) VALUES (1004, 1001, 1001);
 INSERT INTO `Votes`(vo_vt_id, vo_se_id, vo_bl_id) VALUES (1004, 1001, 1002);
@@ -231,3 +254,5 @@ INSERT INTO `Votes`(vo_vt_id, vo_se_id, vo_bl_id) VALUES (1004, 1002, 1001);
 INSERT INTO `Votes`(vo_vt_id, vo_se_id, vo_bl_id) VALUES (1004, 1002, 1002);
 
 INSERT INTO `Admins`(ad_username, ad_password)VALUES('admin', 'test123');
+
+INSERT INTO `Settings` (st_start_session, st_active_bill, st_default_vt, st_default_pvt) VALUES ( 0, 1001, 1001, 1001);

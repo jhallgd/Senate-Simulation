@@ -11,7 +11,7 @@ class settings_dao_implementation implements settings_dao_interface
 
     public function find_by_id($settings_id): settings
     {
-        $sql = "SELECT st_id, st_start_session, st_active_bill 
+        $sql = "SELECT st_id, st_start_session, st_active_bill, st_default_vt, st_default_pvt
 		FROM Settings 
 		WHERE st_id = $settings_id;";
         $raw_data = $this->db->get_data($sql);
