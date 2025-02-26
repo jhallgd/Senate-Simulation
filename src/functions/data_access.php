@@ -240,6 +240,16 @@ class data_access
 
     //Party Functions
 
+    public function create_party(parties $party):bool{
+        return $this->party_dao->create($party);
+    }
+
+    public function update_party(parties $party):bool{
+        return $this->party_dao->update($party);
+    }
+    public function delete_party(parties $party):bool{
+        return $this->party_dao->delete($party);
+    }
     public function check_party_by_id($party_id)
     {
         return $this->party_dao->check_by_id($party_id);

@@ -9,13 +9,25 @@ class party_dao_implementation implements party_dao_interface
         $this->db = $db;
     }
 
-    public function create($party)
+    public function create(parties $party):bool
     {
+        return false; //TODO Add Party Bills,  Add party
     }
-    public function delete($party)
+    public function delete(parties $party): bool
     {
+        return false;//TODO Remove Party Bills, Set senator party id to null. Remove party
+    }
 
+    
+    public function update(parties $party):bool{
+        $sql = 'UPDATE Parties
+        SET pa_name = "' . $party->get_party_name() . '", 
+        pa_location = "' . $party->get_party_location() . '", 
+        pa_color = "' . $party->get_party_color() . '" 
+        WHERE pa_id = ' . $party->get_id() . ';';
+        return $this->db->update_data($sql);
     }
+    
     public function find_by_id(int $party_id): parties
     {
         $sql = "SELECT pa_id, pa_name, pa_location, pa_color 
@@ -37,10 +49,6 @@ class party_dao_implementation implements party_dao_interface
             array_push($parties, new parties($party_data));
         }
         return $parties;
-
-    }
-    public function update(parties $party)
-    {
 
     }
     public function check_by_id(int $party_id):bool{

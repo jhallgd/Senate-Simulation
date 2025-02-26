@@ -16,6 +16,7 @@ if (!isset($_SESSION['ad'])) {
     echo '<p><a href ="/admin/logout.php">Logout</a></p>';
     echo '<p><a href ="/admin/senators/">Edit Senators</a></p>';
     echo '<p><a href ="/admin/committees/">Edit Committees</a></p>';
+    echo '<p><a href ="/admin/parties/">Edit Parties</a></p>';
     echo '<p><a href ="/admin/bills/">Edit Bills</a></p>';
     echo '<h1>Tables for Reference</h1>';
 	$da->show_all_tables();
