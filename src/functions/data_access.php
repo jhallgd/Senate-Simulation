@@ -5,15 +5,18 @@ require($ROOT . '/functions/db.php');
 require($ROOT . '/functions/common_functions.php');
 
 require($ROOT . '/objects/senators/senators.php');
+require($ROOT . '/objects/senators/senators_committees.php');
 
 require($ROOT . '/objects/committees/committees.php');
 require($ROOT . '/objects/committees/committees_senators.php');
+require($ROOT . '/objects/committees/committee_position_types.php');
 
 require($ROOT . '/objects/bills/bills.php');
 require($ROOT . '/objects/bills/bills_committees.php');
 require($ROOT . '/objects/bills/bills_parties.php');
 
 require($ROOT . '/objects/parties/parties.php');
+require($ROOT . '/objects/parties/party_views.php');
 
 require($ROOT . '/objects/votes/votes.php');
 require($ROOT . '/objects/votes/votes_senators.php');
@@ -49,6 +52,9 @@ require($ROOT . '/dao/vote/vote_type_dao_implementation.php');
 require($ROOT . '/dao/settings/settings_dao_interface.php');
 require($ROOT . '/dao/settings/settings_dao_implementation.php');
 
+require($ROOT . '/dao/admin/admin_dao_interface.php');
+require($ROOT . '/dao/admin/admin_dao_implementation.php');
+
 
 
 class data_access
@@ -65,6 +71,7 @@ class data_access
     private vote_dao_interface $vote_dao;
     private vote_type_dao_interface $vote_type_dao;
     private settings_dao_interface $settings_dao;
+    private admin_dao_interface $admin_dao;
 
 
 
@@ -89,14 +96,27 @@ class data_access
         $this->vote_type_dao = new vote_type_dao_implementation($this->db);
 
         $this->settings_dao = new settings_dao_implementation($this->db);
+
+        $this->admin_dao = new admin_dao_implementation($this->db);
     }
 
     // Senator Functions
 
+  
+    public function create_senator(senators $senator): bool
+    {
+        return $this->senator_dao->create($senator, $this->get_settings()->get_default_vote_type());
+    }
     public function update_senator(senators $senator)
     {
         return $this->senator_dao->update($senator);
     }
+
+    public function delete_senator(senators $senator):bool
+    {
+        return $this->senator_dao->delete($senator);
+    }
+
     public function check_senate_id($id): bool
     {
         $senator = $this->senator_dao->find_by_id($id);
@@ -108,7 +128,44 @@ class data_access
         return $this->senator_dao->find_by_id($id);
     }
 
+    public function get_all_senators(): array
+    {
+        return $this->senator_dao->get_all();
+    }
+
+    public function get_senators_committees(): array{
+        return $this->senator_dao->find_all_senator_committees();
+    }
+
+    public function get_all_unassigned_senators_committees():array{
+        return $this->senator_dao->find_all_senator_unassigned_committees();
+    }
+
+    public function get_senators_committees_by_co_id(int $co_id): array{
+        return $this->senator_dao->find_all_senator_committees_co_id($co_id);
+    }
+
+    public function update_senators_committees(int $sc_id, int $sc_cpt_id, int $sc_se_id, int $sc_co_id):bool{
+        return $this->senator_dao->update_senators_committees($sc_id, $sc_cpt_id, $sc_se_id, $sc_co_id);
+    }
+
     // Committee Functions
+
+    public function create_committee(committees $committee): bool
+    {
+        return $this->committee_dao->create($committee);
+    }
+
+    public function update_committee(committees $committee): bool
+    {
+        return $this->committee_dao->update($committee);
+    }
+
+    public function delete_committee(committees $committee): bool
+    {
+        return $this->committee_dao->delete($committee);
+    }
+
     public function get_committee_by_id($co_id): committees
     {
         return $this->committee_dao->find_by_id($co_id);
@@ -116,6 +173,21 @@ class data_access
     public function get_committees_by_se_id($se_id): array
     {
         return $this->committee_senator_dao->find_by_se_id($se_id);
+    }
+
+    public function get_all_committees(): array{
+        return $this->committee_dao->get_all();
+    }
+
+    public function get_all_committees_bills(): array{
+        return $this->bill_committee_dao->get_all();
+    }
+
+    public function create_committee_bill(int $bl_id, int $co_id): bool{
+        return $this->bill_committee_dao->create($bl_id, $co_id);
+    }
+    public function delete_committee_bill(int $bl_id, int $co_id): bool{
+        return $this->bill_committee_dao->delete($bl_id, $co_id);
     }
 
     public function create_commitee_list()
@@ -134,7 +206,26 @@ class data_access
         }
     }
 
+    public function get_all_committee_position_types():array{
+        return $this->committee_dao->get_all_committee_position_types();
+    }
+
     //Bill Functions
+
+    public function create_bill(bills $bill): bool{
+        return $this->bill_dao->create($bill,$this->get_settings()->get_default_party_view(),$this->get_settings()->get_default_vote_type());
+    }
+
+    public function update_bill(bills $bill): bool{
+        return $this->bill_dao->update($bill);
+    }
+
+    public function delete_bill(bills $bill): bool{
+        return $this->bill_dao->delete($bill);
+    }
+    public function get_all_bills(): array{
+        return $this->bill_dao->get_all();
+    }
 
     public function get_bill_by_id($bill_id): bills
     {
@@ -143,6 +234,10 @@ class data_access
     public function get_bills_by_co_id($co_id): array
     {
         return $this->bill_committee_dao->find_all_by_co_id($co_id);
+    }
+
+    public function get_bills_by_pa_id(int $party_id): array{
+        return $this->bill_party_dao->find_all_party_id($party_id);
     }
 
     public function create_bill_table()
@@ -184,6 +279,16 @@ class data_access
 
     //Party Functions
 
+    public function create_party(parties $party):bool{
+        return $this->party_dao->create($party, $this->get_settings()->get_default_party_view());
+    }
+
+    public function update_party(parties $party):bool{
+        return $this->party_dao->update($party);
+    }
+    public function delete_party(parties $party):bool{
+        return $this->party_dao->delete($party);
+    }
     public function check_party_by_id($party_id)
     {
         return $this->party_dao->check_by_id($party_id);
@@ -195,6 +300,14 @@ class data_access
     public function get_party_by_id($id)
     {
         return $this->party_dao->find_by_id($id);
+    }
+
+    public function get_all_party_views():array{
+        return $this->party_dao->get_all_party_views();
+    }
+
+    public function update_bills_parties(int $pb_id, int $pvt_id){
+        return $this->bill_party_dao->update($pb_id, $pvt_id);
     }
 
     public function create_party_senators_table($party_id)
@@ -245,6 +358,16 @@ class data_access
     public function get_settings()
     {
         return $this->settings_dao->find_by_id(1001);
+    }
+    // Admin Functions
+    public function check_admin_login(string $username, string $password): bool
+    {
+        return $this->admin_dao->check_by_credentials($username, $password);
+    }
+
+    public function update_settings(settings $settings):bool
+    {
+        return $this->settings_dao->update( $settings);
     }
 
     // MISC Functions

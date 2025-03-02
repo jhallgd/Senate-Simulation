@@ -6,6 +6,7 @@ interface bill_party_dao_interface
     public function find_all_party_id($party_id): array;
     public function get_all(): array;
 
+    public function update(int $pb_id, int $pvt_id):bool;
 }
 
 ?>
