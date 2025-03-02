@@ -17,7 +17,7 @@ if (!isset($_SESSION['ad'])) {
     echo '<h1>Edit Committee</h1>';
     if ($_POST["co_id"] == -1){
         $data = [
-            "se_id" => -1,
+            "co_id" => -1,
             "co_name" => "",
             "co_location" => ""
         ];

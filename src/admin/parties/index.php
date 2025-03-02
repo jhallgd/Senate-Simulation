@@ -29,7 +29,7 @@ if (!isset($_SESSION['ad'])) {
         echo '<input type="submit" value="Edit" name = "submit">';
         echo '</form>';
 
-        echo '<form action = "remove_committee.php" method="post">';
+        echo '<form action = "remove_party.php" method="post">';
         echo '<input type="hidden" id="pa_id" name="pa_id" value = '.$party->get_id().'>';
         echo '<input type="submit" value="Remove" name = "submit">';
         echo '</form></br>';

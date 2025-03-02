@@ -46,6 +46,17 @@ class committee_dao_implementation implements committee_dao_interface {
         return $this->db->update_data($sql);
     }
 
+    public function get_all_committee_position_types(): array{
+        $sql = "SELECT cpt_id, cpt_name, cpt_order 
+		FROM CommitteePositionTypes;";
+        $raw_data = $this->db->get_data($sql);
+        $committees_position_types = [];
+        foreach($raw_data as $committee_data){
+            array_push($committees_position_types, new commitee_postion_type($committee_data));
+        }
+        return $committees_position_types;
+    }
+
 }
 
 

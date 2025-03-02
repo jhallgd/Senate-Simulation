@@ -19,7 +19,7 @@ class bill_committee_dao_implementation implements bill_committee_dao_interface
 
         $raw_data = $this->db->get_data($sql);
 
-        if(sizeof($raw_data) == 0){
+        if (sizeof($raw_data) == 0) {
             $sql = "SELECT bl_id, bl_title, bl_short_text, bl_url, 'Unassigned' AS co_name 
             FROM Bills
             WHERE bl_id = $bill_id;";
@@ -63,6 +63,24 @@ class bill_committee_dao_implementation implements bill_committee_dao_interface
         }
         return $bills;
 
+    }
+
+    public function create(int $bill_id, int $co_id): bool
+    {
+        $sql = 'SELECT cb_id FROM CommitteesBills WHERE cb_bl_id = ' . $bill_id . ' AND cb_co_id =' . $co_id . ';';
+        $raw_data = $this->db->get_data($sql);
+        if (sizeof($raw_data) > 0) {
+            return true;
+        } else {
+            $sql = 'INSERT INTO CommitteesBills (cb_co_id, cb_bl_id) VALUES(' . $co_id . ',' . $bill_id.');';
+            return $this->db->update_data($sql);
+        }
+    }
+
+    public function delete(int $bill_id, int $co_id): bool
+    {
+        $sql = 'DELETE FROM CommitteesBills WHERE cb_bl_id = ' . $bill_id . ' AND cb_co_id =' . $co_id . ';';
+        return $this->db->update_data($sql);
     }
 
 }

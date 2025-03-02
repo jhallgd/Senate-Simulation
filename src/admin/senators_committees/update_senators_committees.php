@@ -13,13 +13,13 @@ if (!isset($_SESSION['ad'])) {
     echo '<input type="submit" value="Login">';
     echo '</form>';
 } else {
-    $party = $da->get_party_by_id($_POST["pa_id"]);
-    $check = $da->delete_party($party);
+    $check = $da->update_senators_committees($_POST["sc_id"], $_POST["sc_cpt_id"], $_POST["sc_se_id"], $_POST["sc_co_id"]);
     if ($check) {
-        echo "Successfully Removed. <a href ='/admin/'>Return Home</a>";
+        echo "Successfully Updated. <a href ='/admin/senators_committees/'>Make more assignments</a>";
     }else{
         echo "Failed. <a href ='/admin/'>Return Home</a>";
     }
+
 
 }
 

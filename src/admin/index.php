@@ -14,10 +14,19 @@ if (!isset($_SESSION['ad'])) {
 } else {
     echo '<h1>Welcome Admin</h1>';
     echo '<p><a href ="/admin/logout.php">Logout</a></p>';
+    echo '<br>';
     echo '<p><a href ="/admin/senators/">Edit Senators</a></p>';
     echo '<p><a href ="/admin/committees/">Edit Committees</a></p>';
     echo '<p><a href ="/admin/parties/">Edit Parties</a></p>';
     echo '<p><a href ="/admin/bills/">Edit Bills</a></p>';
+
+    echo '<br>';
+    echo '<p><a href ="/admin/bills_committees">Assign Bills to Committees</a></p>';
+    echo '<p><a href ="/admin/bills_parties">Assign Bills to Parties</a></p>';
+    echo '<p><a href ="/admin/senators_committees">Assign Senators to Committees</a></p>';
+    echo '<p><a href ="/admin/senate_floor">Senate Floor Functions</a></p>';
+
+
     echo '<h1>Tables for Reference</h1>';
 	$da->show_all_tables();
 }

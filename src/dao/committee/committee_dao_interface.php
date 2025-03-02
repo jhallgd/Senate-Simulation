@@ -8,6 +8,8 @@ interface committee_dao_interface
     public function get_all(): array;
     public function update(committees $committee): bool;
 
+    public function get_all_committee_position_types(): array;
+
 }
 
 ?>

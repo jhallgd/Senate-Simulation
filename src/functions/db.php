@@ -116,7 +116,8 @@ class database
 	}
 
 	// Bill Functions
-	public function create_bill(bills $bill, int $default_pv ,int $default_vt): bool{
+	public function create_bill(bills $bill, int $default_pv, int $default_vt): bool
+	{
 		$this->conn->beginTransaction();
 
 		//Add Bill
@@ -133,13 +134,13 @@ class database
 		$bill_id = $id_array[0]['bl_id'];
 
 		//Add Bill Party View
-		$bill_party_sql = 'INSERT INTO `PartiesBills`(pb_pvt_id, pb_pa_id, pb_bl_id) SELECT ' . $default_pv . ' AS "pb_pvt_id", pa_id AS "pb_pa_id", '.$bill_id.' as "pb_bl_id" FROM Parties';
+		$bill_party_sql = 'INSERT INTO `PartiesBills`(pb_pvt_id, pb_pa_id, pb_bl_id) SELECT ' . $default_pv . ' AS "pb_pvt_id", pa_id AS "pb_pa_id", ' . $bill_id . ' as "pb_bl_id" FROM Parties';
 
 		$sth = $this->conn->prepare($bill_party_sql);
 		$sth->execute();
 
 		//Add Votes
-		$votes_sql = 'INSERT INTO `Votes`(vo_vt_id, vo_se_id, vo_bl_id) SELECT ' . $default_vt . ' AS "vo_vt_id", se_id AS "vo_se_id", '.$bill_id.' as "vo_bl_id" FROM Senators';
+		$votes_sql = 'INSERT INTO `Votes`(vo_vt_id, vo_se_id, vo_bl_id) SELECT ' . $default_vt . ' AS "vo_vt_id", se_id AS "vo_se_id", ' . $bill_id . ' as "vo_bl_id" FROM Senators';
 		$sth = $this->conn->prepare($votes_sql);
 		$sth->execute();
 
@@ -150,7 +151,39 @@ class database
 
 		return $update;
 	}
+	// Party Functions
+	public function create_party(parties $party, int $default_pvt): bool
+	{
+		$this->conn->beginTransaction();
+		// Add Party
+		$party_sql = 'INSERT INTO `Parties` (pa_name, pa_location, pa_color)
+        VALUES ("' . $party->get_party_name() . '", 
+        "' . $party->get_party_location() . '", 
+        "' . $party->get_party_color() . '");';
 
+		$sth = $this->conn->prepare($party_sql);
+		$sth->execute();
+
+		$id_sql = 'SELECT pa_id FROM Parties ORDER BY pa_id DESC LIMIT 1;';
+		$id_array = $this->get_data($id_sql);
+		$party_id = $id_array[0]['pa_id'];
+
+		// Add Bills Parties
+		$bill_party_sql = 'INSERT INTO `PartiesBills`(pb_pvt_id, pb_pa_id, pb_bl_id)
+		SELECT ' . $default_pvt . ' AS pb_pvt_id, ' . $party_id . ' AS pb_pa_id, bl_id as pb_bl_id FROM Bills;';
+
+		$sth = $this->conn->prepare($bill_party_sql);
+		$sth->execute();
+
+		$update = $this->conn->commit();
+		if ($update === false) {
+			$this->conn->rollBack();
+		}
+
+		return $update;
+
+
+	}
 
 }
 ?>

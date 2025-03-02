@@ -116,7 +116,7 @@ CREATE TABLE `CommitteesBills`
     CONSTRAINT FK_CommitteesBills_Bills FOREIGN KEY (`cb_bl_id`) REFERENCES Bills(`bl_id`)
 ) ENGINE = InnoDB;
 
-ALTER TABLE `PartiesBills`
+ALTER TABLE `CommitteesBills`
     AUTO_INCREMENT = 1001;
 
 

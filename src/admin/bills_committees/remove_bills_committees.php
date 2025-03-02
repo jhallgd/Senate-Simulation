@@ -13,8 +13,7 @@ if (!isset($_SESSION['ad'])) {
     echo '<input type="submit" value="Login">';
     echo '</form>';
 } else {
-    $party = $da->get_party_by_id($_POST["pa_id"]);
-    $check = $da->delete_party($party);
+    $check = $da->delete_committee_bill($_POST["bl_id"], $_POST["co_id"]);
     if ($check) {
         echo "Successfully Removed. <a href ='/admin/'>Return Home</a>";
     }else{
