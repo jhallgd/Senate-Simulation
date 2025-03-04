@@ -32,6 +32,20 @@ if (!isset($_SESSION['se'])) {
         echo '</ul>';
         echo '<li>Adjournment</li>';
         echo '</ul>';
+
+        echo '<br>';
+
+        $committee_members = $da->get_senators_committees_by_co_id($committee->get_id());
+        if(sizeof($committee_members) > 0){
+        echo '<h2 style="text-align: center;">Roster</h2>';
+        echo '<ul>';
+            foreach($committee_members as $committee_member){
+                $senator = $da->get_senator_by_id($committee_member->get_senator_id());
+                echo '<li>'.$senator->get_full_name().', '.$committee_member->get_committee_posotion().'</li>';
+            }
+            echo '</ul>';
+        }
+
     }
 }
 
