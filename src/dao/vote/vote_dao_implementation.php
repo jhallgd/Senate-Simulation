@@ -71,11 +71,13 @@ class vote_dao_implementation implements vote_dao_interface
 
     public function find_all_by_bl_id(int $bl_id): array
     {
-        $sql = "SELECT vo_id, vo_vt_id, vt_name, vt_color, vo_se_id, vo_bl_id, se_first_name, se_last_name  
+        $sql = "SELECT vo_id, vo_vt_id, vt_name, vt_color, vo_se_id, vo_bl_id, se_first_name, se_last_name, se_title, ct_count  
 		FROM Votes
         LEFT JOIN VoteTypes ON vo_vt_id = vt_id
         LEFT JOIN Senators ON vo_se_id = se_id
-        WHERE vo_bl_id = $bl_id
+		LEFT JOIN (SELECT se_last_name AS ct_last_name, COUNT(se_id) AS ct_count FROM Senators GROUP BY se_last_name) AS Senators_count ON se_last_name = ct_last_name
+		
+        WHERE vo_bl_id = ".$bl_id."
         ORDER BY se_last_name;";
 
         $raw_data = $this->db->get_data($sql);
