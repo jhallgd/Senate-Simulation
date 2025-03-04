@@ -104,6 +104,12 @@ class vote_dao_implementation implements vote_dao_interface
         return $votes;
     }
 
+    
+    public function clear_votes_by_bl_id(int $bl_id):bool{
+        $sql = 'UPDATE Votes SET vo_vt_id = 1001 WHERE vo_bl_id = '.$bl_id.';';
+        return $this->db->update_data($sql);
+    }
+
 
 }
 
