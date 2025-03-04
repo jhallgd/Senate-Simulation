@@ -95,7 +95,7 @@ class senator_dao_implementation implements senator_dao_interface
         $sql = "SELECT sc_id, sc_cpt_id, cpt_name, sc_se_id, sc_co_id
 		FROM SenatorsCommittees 
 		LEFT JOIN CommitteePositionTypes ON sc_cpt_id = cpt_id
-        WHERE sc_co_id = ". $co_id .";";
+        WHERE sc_co_id = ". $co_id ." ORDER BY cpt_order;";
         $raw_data = $this->db->get_data($sql);
         $senators_committees = [];
 
