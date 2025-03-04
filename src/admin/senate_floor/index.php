@@ -49,6 +49,15 @@ if (!isset($_SESSION['ad'])) {
         }
     }
 
+    if (isset($_POST['clear_bill'])) {
+        
+        if ($da->clear_votes_by_bl_id($_POST['clear_bill'])) {
+            echo 'Cleared<br>';
+        } else {
+            echo 'Failed to clear<br>';
+        }
+    }
+
     echo "<a href ='/admin/'>Return Home</a>";
     echo '<h1>Senate Floor Functions</h1>';
 
@@ -71,6 +80,7 @@ if (!isset($_SESSION['ad'])) {
     echo '<br>';
 
     $bills = $da->get_all_bills();
+
     echo '<form action = "/admin/senate_floor/" method="post">';
     echo '<label for="st_active_bill">Selected Bill:</label><br>';
     echo '<select name = "st_active_bill" id="st_active_bill">';
@@ -87,7 +97,17 @@ if (!isset($_SESSION['ad'])) {
     echo '<input type="submit" value="Update">';
     echo '</form>';
 
-    //TODO Clear bill votes
+    echo '<br>';
+
+    echo '<form action = "/admin/senate_floor/" method="post">';
+    echo '<label for="clear_bill">Clear Bill Votes:</label><br>';
+    echo '<select name = "clear_bill" id="clear_bill">';
+    foreach ($bills as $bill) {
+        echo '<option value=' . $bill->get_bill_id() . '>' . $bill->get_bill_title() . '</option>';
+    }
+    echo '</select>';
+    echo '<input type="submit" value="Clear">';
+    echo '</form>';
     
 }
 

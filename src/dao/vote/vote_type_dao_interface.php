@@ -11,6 +11,7 @@ interface vote_type_dao_interface
     public function get_all_totals(int $bl_id): array;
     public function update(vote_types $vote_types):bool;
 
+
 }
 
 ?>

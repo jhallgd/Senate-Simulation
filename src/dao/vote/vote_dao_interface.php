@@ -11,6 +11,7 @@ interface vote_dao_interface
     public function find_all_by_se_id(int $se_id): array;
     public function get_all(): array;
     public function update(votes $vote);
+    public function clear_votes_by_bl_id(int $bl_id):bool;
 }
 
 ?>

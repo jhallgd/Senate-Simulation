@@ -353,6 +353,11 @@ class data_access
         return $this->vote_type_dao->get_all_totals($bl_id);
     }
 
+    public function clear_votes_by_bl_id(int $bl_id): bool
+    {
+        return $this->vote_dao->clear_votes_by_bl_id($bl_id);
+    }
+
 
     //Settings
     public function get_settings()
