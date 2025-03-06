@@ -16,7 +16,7 @@ if (!isset($_SESSION['ad'])) {
     echo "<a href ='/admin/'>Return Home</a>";
     $parties = $da->get_all_parties();
     foreach ($parties as $party) {
-        echo '<h2 style="color:' . $party->get_party_color() . '">' . $party->get_party_name() . '</h2>';
+        echo '<h2 style="color:' . $party->get_party_color() . '">' . $party->get_party_name() . ': ' . $da->get_party_count($party->get_id()) .'</h2>';
         $da->create_bill_party_table($party->get_id());
     }
 }

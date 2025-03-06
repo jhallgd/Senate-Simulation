@@ -15,9 +15,9 @@ if (!isset($_SESSION['ad'])) {
 } else {
     $check = $da->update_bills_parties($_POST["pb_id"], $_POST["pvt_id"]);
     if ($check) {
-        echo "Successfully Updated. <a href ='/admin/'>Return Home</a>";
+        echo '<script>window.location.replace("/admin/bills_parties");</script>';
     }else{
-        echo "Failed. <a href ='/admin/'>Return Home</a>";
+        echo '<script>window.location.replace("/admin/bills_parties");</script>';
     }
 
 

@@ -26,9 +26,9 @@ if (!isset($_SESSION['ad'])) {
         $check = $da->update_party($party);
     }
     if ($check) {
-        echo "Update Success. <a href ='/admin/'>Return Home</a>";
+        echo '<script>window.location.replace("/admin/parties");</script>';
     }else{
-        echo "Update failed. <a href ='/admin/'>Return Home</a>";
+        echo '<script>window.location.replace("/admin/parties");</script>';
     }
 
 }

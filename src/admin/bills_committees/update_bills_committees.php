@@ -15,9 +15,9 @@ if (!isset($_SESSION['ad'])) {
 } else {
     $check = $da->create_committee_bill($_POST["bl_id"], $_POST["co_id"]);
     if ($check) {
-        echo "Successfully added. <a href ='/admin/'>Return Home</a>";
+        echo '<script>window.location.replace("/admin/bills_committees");</script>';
     }else{
-        echo "Failed. <a href ='/admin/'>Return Home</a>";
+        echo '<script>window.location.replace("/admin/bills_committees");</script>';
     }
 
 

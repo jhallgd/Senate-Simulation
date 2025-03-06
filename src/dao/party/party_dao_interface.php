@@ -12,6 +12,8 @@ interface party_dao_interface
 
     public function get_all_party_views():array;
 
+    public function get_count(int $party_id): int;
+
 }
 
 ?>

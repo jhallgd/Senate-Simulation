@@ -18,10 +18,10 @@ if($se_id == 0 OR $da->check_senate_id($se_id) == false){
 }
 
 if($se_id == 0){
-    echo 'Login Failed. Please try again.';
+    echo '<script>window.location.replace("/");</script>';
 }else{
     $_SESSION["se"] = $se_id;
-    echo 'Login Success contine to <a href="/pages/user_profile.php">Portal Page</a>.';
+    echo '<script>window.location.replace("/pages/user_profile.php");</script>';
 
 }
 echo '</div>';

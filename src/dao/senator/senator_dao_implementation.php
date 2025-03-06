@@ -108,7 +108,7 @@ class senator_dao_implementation implements senator_dao_interface
     public function find_all_senator_unassigned_committees(): array{
         $sql = "SELECT -1 AS sc_id, 1003 AS sc_cpt_id, 'Unassigned' AS cpt_name, se_id AS sc_se_id, -1 AS sc_co_id
 		FROM Senators
-		WHERE se_id NOT IN (SELECT sc_co_id FROM SenatorsCommittees);";
+		WHERE se_id NOT IN (SELECT sc_se_id FROM SenatorsCommittees);";
         $raw_data = $this->db->get_data($sql);
         $senators_committees = [];
 

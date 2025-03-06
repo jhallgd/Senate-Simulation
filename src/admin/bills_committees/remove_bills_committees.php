@@ -15,9 +15,9 @@ if (!isset($_SESSION['ad'])) {
 } else {
     $check = $da->delete_committee_bill($_POST["bl_id"], $_POST["co_id"]);
     if ($check) {
-        echo "Successfully Removed. <a href ='/admin/'>Return Home</a>";
+        echo '<script>window.location.replace("/admin/bills_committees");</script>';
     }else{
-        echo "Failed. <a href ='/admin/'>Return Home</a>";
+        echo '<script>window.location.replace("/admin/bills_committees");</script>';
     }
 
 }

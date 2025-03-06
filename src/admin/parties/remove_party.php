@@ -16,9 +16,9 @@ if (!isset($_SESSION['ad'])) {
     $party = $da->get_party_by_id($_POST["pa_id"]);
     $check = $da->delete_party($party);
     if ($check) {
-        echo "Successfully Removed. <a href ='/admin/'>Return Home</a>";
+        echo '<script>window.location.replace("/admin/parties");</script>';
     }else{
-        echo "Failed. <a href ='/admin/'>Return Home</a>";
+        echo '<script>window.location.replace("/admin/parties");</script>';
     }
 
 }

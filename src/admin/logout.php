@@ -10,7 +10,7 @@ echo '<div class="center_box">';
 if (isset($_SESSION['ad'])) {
     session_unset();
 }
-echo 'You are now logged out. <a href="/">Return Home</a>';
+echo '<script>window.location.replace("/");</script>';
 
 echo '</div>';
 include_once("footer.php");

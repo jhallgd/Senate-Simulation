@@ -15,9 +15,9 @@ if (!isset($_SESSION['ad'])) {
 } else {
     $check = $da->update_senators_committees($_POST["sc_id"], $_POST["sc_cpt_id"], $_POST["sc_se_id"], $_POST["sc_co_id"]);
     if ($check) {
-        echo "Successfully Updated. <a href ='/admin/senators_committees/'>Make more assignments</a>";
+        echo '<script>window.location.replace("/admin/senators_committees");</script>';
     }else{
-        echo "Failed. <a href ='/admin/'>Return Home</a>";
+        echo '<script>window.location.replace("/admin/senators_committees");</script>';
     }
 
 
