@@ -25,9 +25,9 @@ if (!isset($_SESSION['ad'])) {
         $check = $da->update_committee($committee);
     }
     if ($check) {
-        echo "Update Success. <a href ='/admin/'>Return Home</a>";
+        echo '<script>window.location.replace("/admin/committees");</script>';
     }else{
-        echo "Update failed. <a href ='/admin/'>Return Home</a>";
+        echo '<script>window.location.replace("/admin/committees");</script>';
     }
 
 }

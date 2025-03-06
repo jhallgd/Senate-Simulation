@@ -16,9 +16,9 @@ if (!isset($_SESSION['ad'])) {
     $bill = $da->get_bill_by_id($_POST["bl_id"]);
     $check = $da->delete_bill($bill);
     if ($check) {
-        echo "Successfully Removed. <a href ='/admin/'>Return Home</a>";
+        echo '<script>window.location.replace("/admin/bills");</script>';
     }else{
-        echo "Failed. <a href ='/admin/'>Return Home</a>";
+        echo '<script>window.location.replace("/admin/bills");</script>';
     }
 
 }

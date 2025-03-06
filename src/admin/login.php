@@ -21,10 +21,10 @@ if(!$da->check_admin_login($_POST['uname'], $_POST['pass'])){
 }
 
 if($ad_name == 0){
-    echo 'Login Failed. Please try again. <a href="/admin">Admin Page</a>';
+    echo '<script>window.location.replace("/admin");</script>';
 }else{
     $_SESSION["ad"] = true;
-    echo 'Login Success contine to <a href="/admin">Admin Page</a>.';
+    echo '<script>window.location.replace("/admin");</script>';
 
 }
 echo '</div>';

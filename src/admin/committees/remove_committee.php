@@ -16,9 +16,9 @@ if (!isset($_SESSION['ad'])) {
     $committee = $da->get_committee_by_id($_POST["co_id"]);
     $check = $da->delete_committee($committee);
     if ($check) {
-        echo "Successfully Removed. <a href ='/admin/'>Return Home</a>";
+        echo '<script>window.location.replace("/admin/committees");</script>';
     }else{
-        echo "Failed. <a href ='/admin/'>Return Home</a>";
+        echo '<script>window.location.replace("/admin/committees");</script>';
     }
 
 }

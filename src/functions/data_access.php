@@ -329,6 +329,10 @@ class data_access
         return $this->bill_party_dao->update($pb_id, $pvt_id);
     }
 
+    public function get_party_count(int $pa_id): int{
+        return $this->party_dao->get_count($pa_id);
+    }
+
     public function create_party_senators_table($party_id)
     {
         $senators = $this->senator_dao->find_all_by_party_id($party_id);

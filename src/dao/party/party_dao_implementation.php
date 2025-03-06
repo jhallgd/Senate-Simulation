@@ -72,6 +72,15 @@ class party_dao_implementation implements party_dao_interface
         return $party_views;
     }
 
+    public function get_count(int $party_id): int{
+        $sql = "SELECT COUNT(se_id) as 'Count' FROM Senators WHERE se_pa_id =".$party_id." GROUP BY se_pa_id;";
+        $count = $this->db->get_data($sql);
+        if(sizeof($count) > 0){
+        return $count[0]['Count'];
+        }
+        return 0;
+    }
+
 }
 
 

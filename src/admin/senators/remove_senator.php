@@ -16,9 +16,9 @@ if (!isset($_SESSION['ad'])) {
     $senator = $da->get_senator_by_id($_POST["se_id"]);
     $check = $da->delete_senator($senator);
     if ($check) {
-        echo "Successfully Removed. <a href ='/admin/'>Return Home</a>";
+        echo '<script>window.location.replace("/admin/senators");</script>';
     }else{
-        echo "Failed. <a href ='/admin/'>Return Home</a>";
+        echo '<script>window.location.replace("/admin/senators");</script>';
     }
 
 }
