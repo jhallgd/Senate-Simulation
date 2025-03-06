@@ -102,7 +102,7 @@ class data_access
 
     // Senator Functions
 
-  
+
     public function create_senator(senators $senator): bool
     {
         return $this->senator_dao->create($senator, $this->get_settings()->get_default_vote_type());
@@ -112,7 +112,7 @@ class data_access
         return $this->senator_dao->update($senator);
     }
 
-    public function delete_senator(senators $senator):bool
+    public function delete_senator(senators $senator): bool
     {
         return $this->senator_dao->delete($senator);
     }
@@ -133,19 +133,23 @@ class data_access
         return $this->senator_dao->get_all();
     }
 
-    public function get_senators_committees(): array{
+    public function get_senators_committees(): array
+    {
         return $this->senator_dao->find_all_senator_committees();
     }
 
-    public function get_all_unassigned_senators_committees():array{
+    public function get_all_unassigned_senators_committees(): array
+    {
         return $this->senator_dao->find_all_senator_unassigned_committees();
     }
 
-    public function get_senators_committees_by_co_id(int $co_id): array{
+    public function get_senators_committees_by_co_id(int $co_id): array
+    {
         return $this->senator_dao->find_all_senator_committees_co_id($co_id);
     }
 
-    public function update_senators_committees(int $sc_id, int $sc_cpt_id, int $sc_se_id, int $sc_co_id):bool{
+    public function update_senators_committees(int $sc_id, int $sc_cpt_id, int $sc_se_id, int $sc_co_id): bool
+    {
         return $this->senator_dao->update_senators_committees($sc_id, $sc_cpt_id, $sc_se_id, $sc_co_id);
     }
 
@@ -175,18 +179,22 @@ class data_access
         return $this->committee_senator_dao->find_by_se_id($se_id);
     }
 
-    public function get_all_committees(): array{
+    public function get_all_committees(): array
+    {
         return $this->committee_dao->get_all();
     }
 
-    public function get_all_committees_bills(): array{
+    public function get_all_committees_bills(): array
+    {
         return $this->bill_committee_dao->get_all();
     }
 
-    public function create_committee_bill(int $bl_id, int $co_id): bool{
+    public function create_committee_bill(int $bl_id, int $co_id): bool
+    {
         return $this->bill_committee_dao->create($bl_id, $co_id);
     }
-    public function delete_committee_bill(int $bl_id, int $co_id): bool{
+    public function delete_committee_bill(int $bl_id, int $co_id): bool
+    {
         return $this->bill_committee_dao->delete($bl_id, $co_id);
     }
 
@@ -206,24 +214,29 @@ class data_access
         }
     }
 
-    public function get_all_committee_position_types():array{
+    public function get_all_committee_position_types(): array
+    {
         return $this->committee_dao->get_all_committee_position_types();
     }
 
     //Bill Functions
 
-    public function create_bill(bills $bill): bool{
-        return $this->bill_dao->create($bill,$this->get_settings()->get_default_party_view(),$this->get_settings()->get_default_vote_type());
+    public function create_bill(bills $bill): bool
+    {
+        return $this->bill_dao->create($bill, $this->get_settings()->get_default_party_view(), $this->get_settings()->get_default_vote_type());
     }
 
-    public function update_bill(bills $bill): bool{
+    public function update_bill(bills $bill): bool
+    {
         return $this->bill_dao->update($bill);
     }
 
-    public function delete_bill(bills $bill): bool{
+    public function delete_bill(bills $bill): bool
+    {
         return $this->bill_dao->delete($bill);
     }
-    public function get_all_bills(): array{
+    public function get_all_bills(): array
+    {
         return $this->bill_dao->get_all();
     }
 
@@ -236,7 +249,8 @@ class data_access
         return $this->bill_committee_dao->find_all_by_co_id($co_id);
     }
 
-    public function get_bills_by_pa_id(int $party_id): array{
+    public function get_bills_by_pa_id(int $party_id): array
+    {
         return $this->bill_party_dao->find_all_party_id($party_id);
     }
 
@@ -279,14 +293,17 @@ class data_access
 
     //Party Functions
 
-    public function create_party(parties $party):bool{
+    public function create_party(parties $party): bool
+    {
         return $this->party_dao->create($party, $this->get_settings()->get_default_party_view());
     }
 
-    public function update_party(parties $party):bool{
+    public function update_party(parties $party): bool
+    {
         return $this->party_dao->update($party);
     }
-    public function delete_party(parties $party):bool{
+    public function delete_party(parties $party): bool
+    {
         return $this->party_dao->delete($party);
     }
     public function check_party_by_id($party_id)
@@ -302,11 +319,13 @@ class data_access
         return $this->party_dao->find_by_id($id);
     }
 
-    public function get_all_party_views():array{
+    public function get_all_party_views(): array
+    {
         return $this->party_dao->get_all_party_views();
     }
 
-    public function update_bills_parties(int $pb_id, int $pvt_id){
+    public function update_bills_parties(int $pb_id, int $pvt_id)
+    {
         return $this->bill_party_dao->update($pb_id, $pvt_id);
     }
 
@@ -370,9 +389,9 @@ class data_access
         return $this->admin_dao->check_by_credentials($username, $password);
     }
 
-    public function update_settings(settings $settings):bool
+    public function update_settings(settings $settings): bool
     {
-        return $this->settings_dao->update( $settings);
+        return $this->settings_dao->update($settings);
     }
 
     // MISC Functions
@@ -381,8 +400,10 @@ class data_access
         $sql = 'SHOW tables;';
         $tables = $this->db->get_data($sql);
         foreach ($tables as $table) {
-            echo '<h2>' . $table['Tables_in_senate_sim'] . '</h2>';
-            $this->simple_table($table['Tables_in_senate_sim']);
+            if ($table['Tables_in_senate_sim'] != 'Admins') {
+                echo '<h2>' . $table['Tables_in_senate_sim'] . '</h2>';
+                $this->simple_table($table['Tables_in_senate_sim']);
+            }
         }
     }
 
