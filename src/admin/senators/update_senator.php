@@ -1,18 +1,6 @@
 <?php
 $SUBROOT = "../";
-include_once($SUBROOT . "admin_header.php");
-
-if (!isset($_SESSION['ad'])) {
-
-    echo '<form action = "login.php" method="post">';
-    echo '<p>Please login to continue.</p>';
-    echo '<label for="uname">Username:</label><br>';
-    echo '<input type="text" id="uname" name="uname"><br>';
-    echo '<label for="pass">Password:</label><br>';
-    echo '<input type="password" id="pass" name="pass"><br>';
-    echo '<input type="submit" value="Login">';
-    echo '</form>';
-} else {
+include_once($SUBROOT. "admin_header_profile.php");
     list($party_id, $party_name) = explode("%", $_POST['se_pa_id'], 2);
     $data = [
         "se_id" => $_POST["se_id"],
@@ -33,8 +21,6 @@ if (!isset($_SESSION['ad'])) {
     }else{
         echo '<script>window.location.replace("/admin/senators");</script>';
     }
-
-}
 
 include_once($SUBROOT . "footer.php");
 ?>

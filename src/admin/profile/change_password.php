@@ -1,10 +1,6 @@
 <?php
 $SUBROOT = "../";
-include_once($SUBROOT . "admin_header.php");
-
-if (!isset($_SESSION['ad'])) {
-    echo '<script>window.location.replace("/admin/");</script>';
-}
+include_once($SUBROOT. "admin_header_profile.php");
 
 $admin = $da->get_admin_by_id($_SESSION['ad']);
 $error_text = '';

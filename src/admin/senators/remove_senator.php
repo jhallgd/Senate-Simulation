@@ -1,26 +1,12 @@
 <?php
 $SUBROOT = "../";
-include_once($SUBROOT . "admin_header.php");
-
-if (!isset($_SESSION['ad'])) {
-
-    echo '<form action = "login.php" method="post">';
-    echo '<p>Please login to continue.</p>';
-    echo '<label for="uname">Username:</label><br>';
-    echo '<input type="text" id="uname" name="uname"><br>';
-    echo '<label for="pass">Password:</label><br>';
-    echo '<input type="password" id="pass" name="pass"><br>';
-    echo '<input type="submit" value="Login">';
-    echo '</form>';
+include_once($SUBROOT. "admin_header_profile.php");
+$senator = $da->get_senator_by_id($_POST["se_id"]);
+$check = $da->delete_senator($senator);
+if ($check) {
+    echo '<script>window.location.replace("/admin/senators");</script>';
 } else {
-    $senator = $da->get_senator_by_id($_POST["se_id"]);
-    $check = $da->delete_senator($senator);
-    if ($check) {
-        echo '<script>window.location.replace("/admin/senators");</script>';
-    }else{
-        echo '<script>window.location.replace("/admin/senators");</script>';
-    }
-
+    echo '<script>window.location.replace("/admin/senators");</script>';
 }
 
 include_once($SUBROOT . "footer.php");

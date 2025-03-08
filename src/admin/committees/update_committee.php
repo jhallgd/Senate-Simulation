@@ -1,35 +1,22 @@
 <?php
 $SUBROOT = "../";
-include_once($SUBROOT . "admin_header.php");
+include_once($SUBROOT . "admin_header_profile.php");
 
-if (!isset($_SESSION['ad'])) {
-
-    echo '<form action = "login.php" method="post">';
-    echo '<p>Please login to continue.</p>';
-    echo '<label for="uname">Username:</label><br>';
-    echo '<input type="text" id="uname" name="uname"><br>';
-    echo '<label for="pass">Password:</label><br>';
-    echo '<input type="password" id="pass" name="pass"><br>';
-    echo '<input type="submit" value="Login">';
-    echo '</form>';
+$data = [
+    "co_id" => $_POST["co_id"],
+    "co_name" => $_POST["co_name"],
+    "co_location" => $_POST["co_location"]
+];
+$committee = new committees($data);
+if ($committee->get_id() == -1) {
+    $check = $da->create_committee($committee);
 } else {
-    $data = [
-        "co_id" => $_POST["co_id"],
-        "co_name" => $_POST["co_name"],
-        "co_location" => $_POST["co_location"]
-    ];
-    $committee = new committees($data);
-    if ($committee->get_id() == -1) {
-        $check = $da->create_committee($committee);
-    } else {
-        $check = $da->update_committee($committee);
-    }
-    if ($check) {
-        echo '<script>window.location.replace("/admin/committees");</script>';
-    }else{
-        echo '<script>window.location.replace("/admin/committees");</script>';
-    }
-
+    $check = $da->update_committee($committee);
+}
+if ($check) {
+    echo '<script>window.location.replace("/admin/committees");</script>';
+} else {
+    echo '<script>window.location.replace("/admin/committees");</script>';
 }
 
 include_once($SUBROOT . "footer.php");
