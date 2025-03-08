@@ -11,9 +11,11 @@ class admin_dao_implementation implements admin_dao_interface
 
     public function create(admins $admin)
     {
+        //TODO
     }
     public function delete(admins $admin)
     {
+        //TODO
     }
     public function find_by_id(int $admin_id): admins
     {
@@ -36,20 +38,29 @@ class admin_dao_implementation implements admin_dao_interface
         return $admins;
 
     }
-    public function update(admins $admin)
+    public function update(admins $admin, string $password):bool
     {
+        $password_hash = password_hash($password, PASSWORD_DEFAULT);
+        $sql = 'UPDATE Admins SET ad_password = "'.$password_hash.'" WHERE ad_id = '.$admin->get_id().'';
+        return $this->db->update_data($sql);
+    }
+
+    public function check_by_credentials(string $username, string $password): int
+    {
+        $password_hash = $this->get_password_hash($username);
+        if ( password_verify($password, $password_hash['ad_password'])){
+            return $password_hash['ad_id'];
+        }else{
+            return -1;
+        }
 
     }
 
-    public function check_by_credentials(string $username, string $password): bool
+    private function get_password_hash(string $username): array
     {
-        $sql = "SELECT ad_id
-        FROM Admins
-        WHERE ad_username = '$username'
-        AND ad_password = '$password'";
-        return $this->db->check_data($sql);
+        $sql = 'SELECT ad_id, ad_password FROM Admins WHERE ad_username = "' . $username . '";';
+        return $this->db->get_data($sql)[0];
     }
-
 
 }
 

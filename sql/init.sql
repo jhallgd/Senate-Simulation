@@ -253,6 +253,6 @@ INSERT INTO `Votes`(vo_vt_id, vo_se_id, vo_bl_id) VALUES (1004, 1001, 1002);
 INSERT INTO `Votes`(vo_vt_id, vo_se_id, vo_bl_id) VALUES (1004, 1002, 1001);
 INSERT INTO `Votes`(vo_vt_id, vo_se_id, vo_bl_id) VALUES (1004, 1002, 1002);
 
-INSERT INTO `Admins`(ad_username, ad_password)VALUES('admin', 'test123');
+INSERT INTO `Admins`(ad_username, ad_password)VALUES('admin', '$2y$12$Z0X1vh.2Nwl2nEii.Zf4X.QwrzYnlovKU0utVmdskp2tIzxzqUue2');
 
 INSERT INTO `Settings` (st_start_session, st_active_bill, st_default_vt, st_default_pvt) VALUES ( 0, 1001, 1001, 1001);

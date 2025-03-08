@@ -24,6 +24,7 @@ require($ROOT . '/objects/votes/vote_types.php');
 require($ROOT . '/objects/votes/vote_types_totals.php');
 
 require($ROOT . '/objects/settings/settings.php');
+require($ROOT . '/objects/admins/admins.php');
 
 require($ROOT . '/dao/senator/senator_dao_interface.php');
 require($ROOT . '/dao/senator/senator_dao_implementation.php');
@@ -387,16 +388,29 @@ class data_access
     {
         return $this->settings_dao->find_by_id(1001);
     }
-    // Admin Functions
-    public function check_admin_login(string $username, string $password): bool
-    {
-        return $this->admin_dao->check_by_credentials($username, $password);
-    }
 
     public function update_settings(settings $settings): bool
     {
         return $this->settings_dao->update($settings);
     }
+
+
+    // Admin Functions
+    public function check_admin_login(string $username, string $password): int
+    {
+        return $this->admin_dao->check_by_credentials($username, $password);
+    }
+
+
+    public function get_admin_by_id(int $id): admins{
+        return $this->admin_dao->find_by_id($id);
+    }
+
+    public function update_admin(admins $admin, string $password): bool{
+        return $this->admin_dao->update($admin, $password);
+    }
+
+    
 
     // MISC Functions
     public function show_all_tables()
