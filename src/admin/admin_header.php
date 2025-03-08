@@ -3,8 +3,10 @@ if (!isset($_SESSION)) {
     session_start();
 }
 $ROOT = dirname(__DIR__);
+
 require($ROOT . '/functions/data_access.php');
 $da = new data_access();
+
 
 
 ?>
