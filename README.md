@@ -1,34 +1,122 @@
-# Senate Simulation
+# 🏛️ Senate Simulation
 
-The Senate Simulation is a project with a goal to educate about the Legislative process. Users will have the opportunity to review bills and vote on them in a mock session. 
+> *Making the U.S. Legislative Process Interactive and Accessible*
 
-## Description
+A civic education web application that transforms the way people learn 
+about the legislative process. Instead of passively reading about how 
+bills become laws, users actively participate — reviewing real-style 
+bills and casting votes in a mock Senate session.
 
-## Getting Started
+**Self-initiated project** — conceived, pitched, and built independently 
+in a professional work environment.
+
+---
+
+## 📸 Screenshots
+*(Add screenshots of your UI here — drag and drop images directly into 
+GitHub)*
+
+---
+
+## 🎯 The Problem It Solves
+
+Civic education around the legislative process is often passive, 
+text-heavy, and disengaging. Senate Simulation changes that by putting 
+users in the seat of a Senator — making democracy hands-on, interactive, 
+and memorable.
+
+---
+
+## ✨ Features
+
+### 👤 User Experience
+- Secure account creation and login
+- Browse and review active bills
+- Cast votes in mock Senate sessions
+- View voting outcomes and session results
+
+### 🔐 Admin Panel
+- User management and role-based access control
+- Bill creation, editing, and session management
+- Voting oversight and administrative reporting
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | JavaScript, HTML, CSS |
+| Backend | PHP |
+| Database | MySQL |
+| Authentication | Role-based user authentication (RBAC) |
+| Scale | Architected for MySQL maximum row capacity |
+
+---
+
+## 🚀 Getting Started
 
 ### Dependencies
+- PHP 7.4+
+- MySQL 5.7+
+- Web server (Apache or Nginx)
+- Modern web browser
 
 ### Installing
 
-### Executing program
+1. Clone the repository
+   ```bash
+   git clone https://github.com/jhallgd/senate-simulation.git
+   '''
 
-## Help
+2. Navigate to the project directory
+'''cd senate-simulation'''
 
+3. Import the database schema
+''' mysql -u your_username -p your_database < database/schema.sql'''
 
-## Authors
+4. Configure your database connection
+'''cp config/config.example.php config/config.php'''
+'Edit config.php with your database credentials'
+5. Point your web server to the /public directory
 
-[Jacob Hall | jhallgd](https://github.com/jhallgd)
+###Running the Application
+1. Start your local web server (Apache/Nginx)
+2. Navigate to http://localhost/senate-simulation
+3. Register an account or log in
+4 .Begin reviewing and voting on bills
 
-## Version History
+📖 How to Use
+*As a User:*
+1. Create an account and log in
+2. Navigate to the Bills section
+3. Review bill details and supporting information
+4. Cast your vote in the active session
+5 .View results when the session closes
 
-* 0.1
-    * Initial Release
+*As an Admin:*
+1. Log in with admin credentials
+2. Create and manage bills in the admin panel
+3. Open and close voting sessions
+4. Monitor user activity and voting results
 
-## License
+🗺️ Version History
+Version	Notes
+0.1	Initial Release
+Active	Continuously developed and improved
+👤 Author
+Jacob Hall
 
-This project is licensed under MIT License - see the [LICENSE.md](docs/LICENSE) file for details
+GitHub: @jhallgd
+Portfolio: jacob-hall.com
+LinkedIn: [Add your LinkedIn URL]
+📄 License
+This project is licensed under the MIT License — see the LICENSE.md file for details.
 
-## Acknowledgments
+🙏 Acknowledgments
+Inspired by Schoolhouse Rock — "I'm Just a Bill" 🎵
+Built with the goal of making civic education engaging for everyone
 
-Inspiration, code snippets, etc.
-* [School House Rock](https://www.youtube.com/watch?v=SZ8psP4S6BQ)
+💡 Why I Built This
+This project wasn't assigned — I pitched it. I saw an opportunity to make civic education more engaging and took ownership of it from concept to execution. It reflects my belief that technology should make complex systems more accessible to everyone.
+   
