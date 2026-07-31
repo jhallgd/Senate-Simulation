@@ -116,9 +116,9 @@ If you prefer running the app in containers, this project includes a Docker Comp
 
 ### Running the Application
 1. Start your local web server (Apache/Nginx)
-2. Navigate to http://localhost/senate-simulation
-3. Register an account or log in
-4 .Begin reviewing and voting on bills
+2. Navigate to http://localhost/
+3. Log in
+4. Begin adding and assigning bills, committees, senators, and parties.
 
 ### 📖 How to Use
 **As a User:**
@@ -126,7 +126,6 @@ If you prefer running the app in containers, this project includes a Docker Comp
 2. Navigate to the Bills section
 3. Review bill details and supporting information
 4. Cast your vote in the active session
-5 .View results when the session closes
 
 **As an Admin:**
 1. Log in with admin credentials
