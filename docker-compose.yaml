@@ -4,16 +4,16 @@ name: senate-simulation
 
 services:
     database:
-        image: mysql:latest
+        image: mysql:8.0
         ports: 
             - "3307:3306"
         networks:
             - main_net
         environment:
-            MYSQL_DATABASE: "senate_sim"
-            MYSQL_ROOT_PASSWORD: "test123"
-            MYSQL_USER: "sim_admin"
-            MYSQL_PASSWORD: "test123"
+            MYSQL_DATABASE: ${DB_DATABASE:-senate_sim}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-change_me}
+            MYSQL_USER: ${DB_USERNAME:-your_db_user}
+            MYSQL_PASSWORD: ${DB_PASSWORD:-change_me}
         volumes:
             - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
     
@@ -26,6 +26,7 @@ services:
             - main_net
         volumes:
             - ./src/:/var/www/html/
+            - ./.env:/var/www/html/.env:ro
             
 networks:
     main_net:

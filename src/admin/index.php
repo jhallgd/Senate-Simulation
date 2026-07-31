@@ -1,7 +1,6 @@
 <?php
 include_once("admin_header_profile.php");
 
-
 echo '<h1>Welcome Admin</h1>';
 echo '<p><a href ="/admin/logout.php">Logout</a></p>';
 echo '<br>';
@@ -22,10 +21,6 @@ echo '<br>';
 echo '<p><a href ="/admin/bills/bill_list.php">Bill List</a></p>';
 echo '<p><a href ="/admin/parties/party_list.php">Party List</a></p>';
 echo '<p><a href ="/admin/committees/committee_list.php">Committee List</a></p>';
-
-echo '<h1>Tables for Reference</h1>';
-$da->show_all_tables();
-
 
 include_once("footer.php");
 ?>

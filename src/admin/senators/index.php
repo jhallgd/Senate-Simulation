@@ -20,7 +20,11 @@ foreach ($senators as $senator) {
     echo '<input type="hidden" id="se_id" name="se_id" value = ' . $senator->get_id() . '>';
     echo '<input type="submit" value="Remove" name = "submit">';
     echo '</form></br>';
+    echo '<a href = "/functions/actions/login.php?s=' . $senator->get_id() . '">View</a><br>';
+
+    echo '<br><hr><br>';
 }
+
 
 
 include_once($SUBROOT . "footer.php");

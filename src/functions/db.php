@@ -1,6 +1,5 @@
 <?php
 
-
 class database
 {
 
@@ -13,15 +12,89 @@ class database
 	// Constructor
 	public function __construct()
 	{
-		$this->username = "sim_admin";
-		$this->password = "test123";
-		$this->servername = "mysql:host=database;port=3306;dbname=senate_sim";
+		$this->load_environment();
+		$this->username = $this->get_env('DB_USERNAME', '');
+		$this->password = $this->get_env('DB_PASSWORD', '');
+		$this->servername = 'mysql:host=' . $this->get_env('DB_HOST', 'database') . ';port=' . $this->get_env('DB_PORT', '3306') . ';dbname=' . $this->get_env('DB_DATABASE', '');
 		$this->conn = new PDO($this->servername, $this->username, $this->password);
+		$this->initialize_admin_account();
+	}
+
+	private function load_environment()
+	{
+		$current_dir = __DIR__;
+		while ($current_dir !== '/' && $current_dir !== '.') {
+			$env_file = $current_dir . DIRECTORY_SEPARATOR . '.env';
+			if (is_file($env_file)) {
+				$lines = file($env_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+				foreach ($lines as $line) {
+					$trimmed_line = trim($line);
+					if ($trimmed_line === '' || strpos($trimmed_line, '#') === 0) {
+						continue;
+					}
+					$parts = explode('=', $line, 2);
+					$name = trim($parts[0]);
+					$value = trim($parts[1] ?? '');
+					if ($name !== '') {
+						$_ENV[$name] = $value;
+						putenv($name . '=' . $value);
+					}
+				}
+				break;
+			}
+
+			$parent_dir = dirname($current_dir);
+			if ($parent_dir === $current_dir) {
+				break;
+			}
+			$current_dir = $parent_dir;
+		}
+	}
+
+	private function get_env(string $key, string $default): string
+	{
+		if (array_key_exists($key, $_ENV) && $_ENV[$key] !== '') {
+			return $_ENV[$key];
+		}
+
+		$from_env = getenv($key);
+		if ($from_env !== false && $from_env !== '') {
+			return $from_env;
+		}
+
+		return $default;
 	}
 
 	private function get_connection()
 	{
 		return $this->conn;
+	}
+
+	public function initialize_admin_account(): void
+	{
+		try {
+			$admin_table_exists = $this->conn->query("SHOW TABLES LIKE 'Admins'")->rowCount() > 0;
+			if (!$admin_table_exists) {
+				return;
+			}
+
+			$existing_admins = $this->conn->query('SELECT COUNT(*) AS admin_count FROM Admins')->fetch(PDO::FETCH_ASSOC);
+			if ((int) $existing_admins['admin_count'] > 0) {
+				return;
+			}
+
+			$username = $this->get_env('ADMIN_USERNAME', 'admin');
+			$password = $this->get_env('ADMIN_PASSWORD', 'test123');
+			$password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+			$statement = $this->conn->prepare('INSERT INTO Admins (ad_username, ad_password) VALUES (:username, :password)');
+			$statement->execute([
+				':username' => $username,
+				':password' => $password_hash,
+			]);
+		} catch (Exception $exception) {
+			// Ignore bootstrap failures during startup so the app can continue to load.
+		}
 	}
 
 	public function get_data(string $sql)
