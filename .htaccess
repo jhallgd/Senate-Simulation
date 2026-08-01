@@ -1,0 +1,32 @@
+Options -Indexes
+RewriteEngine On
+
+# Never expose environment files or hidden dotfiles.
+<FilesMatch "^\.">
+	<IfModule mod_authz_core.c>
+		Require all denied
+	</IfModule>
+	<IfModule !mod_authz_core.c>
+		Deny from all
+	</IfModule>
+</FilesMatch>
+
+<FilesMatch "^\.env(\..*)?$">
+	<IfModule mod_authz_core.c>
+		Require all denied
+	</IfModule>
+	<IfModule !mod_authz_core.c>
+		Deny from all
+	</IfModule>
+</FilesMatch>
+
+# Serve the application entrypoint from src when visiting the site root.
+RewriteRule ^$ src/index.php [L]
+
+# Allow direct access to anything under /src without rewriting again.
+RewriteRule ^src/ - [L]
+
+# If the requested path exists in /src, serve that real file or directory.
+RewriteCond %{DOCUMENT_ROOT}/src%{REQUEST_URI} -f [OR]
+RewriteCond %{DOCUMENT_ROOT}/src%{REQUEST_URI} -d
+RewriteRule ^(.*)$ src/$1 [L]
