@@ -2,7 +2,7 @@
 
 include_once("admin_header.php");
 
- echo '<form action = "login.php" method="post">';
+ echo '<form action = "admin/login.php" method="post">';
  echo '<p>Please login to continue.</p>';
  echo '<label for="uname">Username:</label><br>';
  echo '<input type="text" id="uname" name="uname"><br>';

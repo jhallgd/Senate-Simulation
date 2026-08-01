@@ -9,7 +9,7 @@ if (isset($_POST['og_pass'])) {
     if (!$check[0]) {
         $error_text = $check[1];
     }else{
-        echo '<script>window.location.replace("admin/");</script>';
+        echo '<script>window.location.replace("' . $base_href . 'admin/");</script>';
     }
 }
 

@@ -14,9 +14,9 @@ if ($party->get_id() == -1) {
     $check = $da->update_party($party);
 }
 if ($check) {
-    echo '<script>window.location.replace("admin/parties");</script>';
+    echo '<script>window.location.replace("' . $base_href . 'admin/parties");</script>';
 } else {
-    echo '<script>window.location.replace("admin/parties");</script>';
+    echo '<script>window.location.replace("' . $base_href . 'admin/parties");</script>';
 }
 
 include_once($SUBROOT . "footer.php");
