@@ -71,10 +71,14 @@ class database
 		while ($current_dir !== '/' && $current_dir !== '.') {
 			$env_file = $current_dir . DIRECTORY_SEPARATOR . '.env';
 			if (is_file($env_file)) {
+				$loaded_any = false;
 				$lines = file($env_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 				foreach ($lines as $line) {
 					$trimmed_line = trim($line);
 					if ($trimmed_line === '' || strpos($trimmed_line, '#') === 0) {
+						continue;
+					}
+					if (strpos($line, '=') === false) {
 						continue;
 					}
 					$parts = explode('=', $line, 2);
@@ -83,9 +87,13 @@ class database
 					if ($name !== '') {
 						$_ENV[$name] = $value;
 						putenv($name . '=' . $value);
+						$loaded_any = true;
 					}
 				}
-				break;
+
+				if ($loaded_any) {
+					break;
+				}
 			}
 
 			$parent_dir = dirname($current_dir);
