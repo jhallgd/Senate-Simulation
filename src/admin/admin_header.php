@@ -23,19 +23,30 @@ if ($configured_base !== false && trim($configured_base) !== '') {
     if ($src_position !== false) {
         $base_href = substr($script_name, 0, $src_position + 1);
     } else {
-        $script_dir = dirname($script_name);
-        $script_dir = str_replace('\\', '/', $script_dir);
-
-        if ($script_dir === '.' || $script_dir === '\\') {
-            $script_dir = '/';
+        $request_uri = $_SERVER['REQUEST_URI'] ?? '';
+        $request_path = parse_url($request_uri, PHP_URL_PATH);
+        if (!is_string($request_path)) {
+            $request_path = '';
         }
+        $request_path = str_replace('\\', '/', $request_path);
 
-        if (substr($script_dir, -4) === '/src') {
-            $script_dir = substr($script_dir, 0, -4);
+        if (preg_match('#^(.+?)/(admin|pages|functions)(?:/|$)#', $request_path, $matches) === 1) {
+            $base_href = rtrim($matches[1], '/') . '/';
+        } else {
+            $script_dir = dirname($script_name);
+            $script_dir = str_replace('\\', '/', $script_dir);
+
+            if ($script_dir === '.' || $script_dir === '\\') {
+                $script_dir = '/';
+            }
+
+            if (substr($script_dir, -4) === '/src') {
+                $script_dir = substr($script_dir, 0, -4);
+            }
+
+            $script_dir = preg_replace('#/+#', '/', $script_dir);
+            $base_href = rtrim($script_dir, '/') . '/';
         }
-
-        $script_dir = preg_replace('#/+#', '/', $script_dir);
-        $base_href = rtrim($script_dir, '/') . '/';
     }
 
     if ($base_href === '') {
