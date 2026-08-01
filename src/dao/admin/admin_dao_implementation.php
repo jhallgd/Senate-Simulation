@@ -48,18 +48,27 @@ class admin_dao_implementation implements admin_dao_interface
     public function check_by_credentials(string $username, string $password): int
     {
         $password_hash = $this->get_password_hash($username);
-        if ( password_verify($password, $password_hash['ad_password'])){
+        if ($password_hash === null) {
+            return -1;
+        }
+
+        if (password_verify($password, $password_hash['ad_password'])) {
             return $password_hash['ad_id'];
-        }else{
+        } else {
             return -1;
         }
 
     }
 
-    private function get_password_hash(string $username): array
+    private function get_password_hash(string $username): ?array
     {
         $sql = 'SELECT ad_id, ad_password FROM Admins WHERE ad_username = "' . $username . '";';
-        return $this->db->get_data($sql)[0];
+        $results = $this->db->get_data($sql);
+        if (empty($results)) {
+            return null;
+        }
+
+        return $results[0];
     }
 
 }
