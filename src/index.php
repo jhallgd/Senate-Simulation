@@ -11,8 +11,8 @@ include_once("components/header.php");
 	<p>This project is designed to make civic learning more interactive and accessible for students, educators, and anyone interested in how laws are debated and passed.</p>
 
 	<h2>Quick Links</h2>
-	<p><a href='/admin'>Admin</a></p>
-	<p><a href='/pages/senate_board.php'>Senate Board</a></p>
+	<p><a href='admin'>Admin</a></p>
+	<p><a href='pages/senate_board.php'>Senate Board</a></p>
 
 
 
