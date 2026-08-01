@@ -17,9 +17,9 @@ include_once($SUBROOT. "admin_header_profile.php");
         $check = $da->update_senator($senator);
     }
     if ($check) {
-        echo '<script>window.location.replace("/admin/senators");</script>';
+        echo '<script>window.location.replace("admin/senators");</script>';
     }else{
-        echo '<script>window.location.replace("/admin/senators");</script>';
+        echo '<script>window.location.replace("admin/senators");</script>';
     }
 
 include_once($SUBROOT . "footer.php");

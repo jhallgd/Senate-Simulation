@@ -19,10 +19,10 @@ if(!isset($_POST["pass"])){
 $ad_name = $da->check_admin_login($_POST['uname'], $_POST['pass']);
 
 if($ad_name == -1){
-    echo '<script>window.location.replace("/admin");</script>';
+    echo '<script>window.location.replace("admin");</script>';
 }else{
     $_SESSION["ad"] = $ad_name;
-    echo '<script>window.location.replace("/admin");</script>';
+    echo '<script>window.location.replace("admin");</script>';
 
 }
 echo '</div>';

@@ -9,7 +9,7 @@ if (isset($_POST['og_pass'])) {
     if (!$check[0]) {
         $error_text = $check[1];
     }else{
-        echo '<script>window.location.replace("/admin/");</script>';
+        echo '<script>window.location.replace("admin/");</script>';
     }
 }
 
@@ -48,7 +48,7 @@ function check_form(): array
     return [$pass, $error_text];
 }
 
-echo "<a href ='/admin/'>Return Home</a>";
+echo "<a href ='admin/'>Return Home</a>";
 echo '<h1>Change Password</h1>';
 
 

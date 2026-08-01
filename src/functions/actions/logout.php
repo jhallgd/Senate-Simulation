@@ -10,7 +10,7 @@ echo '<div class="center_box">';
 if (isset($_SESSION['se'])) {
     session_unset();
 }
-echo '<script>window.location.replace("/");</script>';
+echo '<script>window.location.replace("index.php");</script>';
 echo '</div>';
 include_once($ROOT . "/components/footer.php");
 ?>

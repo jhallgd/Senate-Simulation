@@ -35,7 +35,7 @@ if (!isset($_SESSION['se'])) {
         }
 
     } else {
-        echo 'Session has ended please return to the <a href="/pages/user_profile.php"><button>Join Session</button>Profiile Page</a>';
+        echo 'Session has ended please return to the <a href="pages/user_profile.php"><button>Join Session</button>Profiile Page</a>';
     }
 
 }

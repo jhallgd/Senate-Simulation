@@ -209,7 +209,7 @@ class data_access
         if (sizeof($committees) > 0) {
             echo '<h2>Committee' . $s . '</h2><ul>';
             foreach ($committees as $committee) {
-                echo '<li><a href="/pages/agenda.php?c=' . $committee->get_id() . '">' . $committee->get_committee_name() . '</a></li>';
+                echo '<li><a href="pages/agenda.php?c=' . $committee->get_id() . '">' . $committee->get_committee_name() . '</a></li>';
             }
             echo '</ul>';
         }

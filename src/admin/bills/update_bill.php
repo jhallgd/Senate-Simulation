@@ -15,9 +15,9 @@ if ($bill->get_bill_id() == -1) {
     $check = $da->update_bill($bill);
 }
 if ($check) {
-    echo '<script>window.location.replace("/admin/bills");</script>';
+    echo '<script>window.location.replace("admin/bills");</script>';
 } else {
-    echo '<script>window.location.replace("/admin/bills");</script>';
+    echo '<script>window.location.replace("admin/bills");</script>';
 }
 
 include_once($SUBROOT . "footer.php");

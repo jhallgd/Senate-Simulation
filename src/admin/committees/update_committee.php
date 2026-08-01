@@ -14,9 +14,9 @@ if ($committee->get_id() == -1) {
     $check = $da->update_committee($committee);
 }
 if ($check) {
-    echo '<script>window.location.replace("/admin/committees");</script>';
+    echo '<script>window.location.replace("admin/committees");</script>';
 } else {
-    echo '<script>window.location.replace("/admin/committees");</script>';
+    echo '<script>window.location.replace("admin/committees");</script>';
 }
 
 include_once($SUBROOT . "footer.php");

@@ -8,8 +8,8 @@ include_once("header.php");
         $senator = $da->get_senator_by_id($_SESSION['se']);
         echo '<p>';
         echo 'Welcome, ' . $senator->get_full_name();
-        echo ' | <a href="/pages/user_profile.php"> Profile Page</a> | ';
-        echo '<a href="/functions/actions/logout.php">Log Out</a>';
+        echo ' | <a href="pages/user_profile.php"> Profile Page</a> | ';
+        echo '<a href="functions/actions/logout.php">Log Out</a>';
 
         echo '</p>';
     } else {

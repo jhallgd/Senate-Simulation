@@ -13,14 +13,23 @@ if ($configured_base !== false && trim($configured_base) !== '') {
     $configured_base = '/' . trim($configured_base, '/') . '/';
     $base_href = preg_replace('#/+#', '/', $configured_base);
 } else {
-    $script_name = $_SERVER['SCRIPT_NAME'] ?? '';
+    $script_name = $_SERVER['SCRIPT_NAME'] ?? '/';
     $script_name = str_replace('\\', '/', $script_name);
-    $src_position = strpos($script_name, '/src/');
-    if ($src_position !== false) {
-        $base_href = substr($script_name, 0, $src_position + 1);
-        if ($base_href === '') {
-            $base_href = '/';
-        }
+    $script_dir = dirname($script_name);
+    $script_dir = str_replace('\\', '/', $script_dir);
+
+    if ($script_dir === '.' || $script_dir === '\\') {
+        $script_dir = '/';
+    }
+
+    if (substr($script_dir, -4) === '/src') {
+        $script_dir = substr($script_dir, 0, -4);
+    }
+
+    $script_dir = preg_replace('#/+#', '/', $script_dir);
+    $base_href = rtrim($script_dir, '/') . '/';
+    if ($base_href === '') {
+        $base_href = '/';
     }
 }
 ?>

@@ -18,10 +18,10 @@ if($se_id == 0 OR $da->check_senate_id($se_id) == false){
 }
 
 if($se_id == 0){
-    echo '<script>window.location.replace("/");</script>';
+    echo '<script>window.location.replace("index.php");</script>';
 }else{
     $_SESSION["se"] = $se_id;
-    echo '<script>window.location.replace("/pages/user_profile.php");</script>';
+    echo '<script>window.location.replace("pages/user_profile.php");</script>';
 
 }
 echo '</div>';

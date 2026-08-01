@@ -26,7 +26,10 @@ RewriteRule ^$ src/index.php [L]
 # Allow direct access to anything under /src without rewriting again.
 RewriteRule ^src/ - [L]
 
-# If the requested path exists in /src, serve that real file or directory.
-RewriteCond %{DOCUMENT_ROOT}/src%{REQUEST_URI} -f [OR]
-RewriteCond %{DOCUMENT_ROOT}/src%{REQUEST_URI} -d
+# If a file or folder already exists at this level, serve it directly.
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Otherwise, resolve the request from the src folder.
 RewriteRule ^(.*)$ src/$1 [L]

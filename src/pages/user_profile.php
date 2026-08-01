@@ -10,15 +10,15 @@ if (!isset($_SESSION['se'])) {
     echo '<h1>Senator ' . $senator->get_last_name() . '</h1>';
 
     if ($settings->get_start_session()) {
-        echo '<a href="/pages/session.php"><button>Join Session</button></a>';
+        echo '<a href="pages/session.php"><button>Join Session</button></a>';
     }
 
     echo '<h2>Party:</h2>';
     if ($senator->get_party() === 'none') {
-        echo '<h3>Party Missing</h3><p><a href = "/pages/join_party.php">Select Party</a></p>';
+        echo '<h3>Party Missing</h3><p><a href = "pages/join_party.php">Select Party</a></p>';
     } else {
         echo '<h3>' . $senator->get_party() . ' </h3>';
-        echo '<p><a href = "/pages/party.php">View Party Informaiton</a></p>';
+        echo '<p><a href = "pages/party.php">View Party Informaiton</a></p>';
     }
     $committees = $da->get_committees_by_se_id($senator->get_id());
 
