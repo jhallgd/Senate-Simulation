@@ -12,7 +12,8 @@ $sec = "3";
 <meta http-equiv="refresh" content="<?php echo $sec?>;URL='<?php echo $page?>'">
 <meta charset="utf-8">
 <title>Senate Simulation</title>
-	<link href="/../css/boardStyle.css" rel="stylesheet" type="text/css">
+	<base href="/">
+	<link href="/css/boardStyle.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
