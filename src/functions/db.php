@@ -5,7 +5,9 @@ class database
 
 	private $username;
 	private $password;
-	private $servername;
+	private $host;
+	private $port;
+	private $database_name;
 	private $conn;
 
 
@@ -15,9 +17,52 @@ class database
 		$this->load_environment();
 		$this->username = $this->get_env('DB_USERNAME', '');
 		$this->password = $this->get_env('DB_PASSWORD', '');
-		$this->servername = 'mysql:host=' . $this->get_env('DB_HOST', 'database') . ';port=' . $this->get_env('DB_PORT', '3306') . ';dbname=' . $this->get_env('DB_DATABASE', '');
-		$this->conn = new PDO($this->servername, $this->username, $this->password);
+		$this->host = $this->get_env('DB_HOST', 'localhost');
+		$this->port = $this->get_env('DB_PORT', '3306');
+		$this->database_name = $this->get_env('DB_DATABASE', '');
+		$this->conn = $this->create_connection();
 		$this->initialize_admin_account();
+	}
+
+	private function create_connection(): PDO
+	{
+		$hosts_to_try = [$this->host];
+
+		// If the Docker service alias is configured but not resolvable (e.g., shared hosting),
+		// try standard local MySQL hosts before failing.
+		if (strtolower($this->host) === 'database') {
+			$hosts_to_try[] = 'localhost';
+			$hosts_to_try[] = '127.0.0.1';
+		}
+
+		$hosts_to_try = array_values(array_unique($hosts_to_try));
+		$last_exception = null;
+
+		foreach ($hosts_to_try as $host) {
+			try {
+				return new PDO(
+					$this->build_dsn($host),
+					$this->username,
+					$this->password,
+					[
+						PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+					]
+				);
+			} catch (PDOException $exception) {
+				$last_exception = $exception;
+			}
+		}
+
+		if ($last_exception !== null) {
+			throw $last_exception;
+		}
+
+		throw new PDOException('Unable to establish database connection.');
+	}
+
+	private function build_dsn(string $host): string
+	{
+		return 'mysql:host=' . $host . ';port=' . $this->port . ';dbname=' . $this->database_name;
 	}
 
 	private function load_environment()
