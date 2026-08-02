@@ -11,7 +11,7 @@ foreach ($committees as $committee) {
     $bills = $da->get_bills_by_co_id($committee->get_id());
     foreach ($bills as $bill) {
         echo '<p>' . $bill->get_bill_title() . '</p>';
-        echo '<form action = "remove_bills_committees.php" method="post">';
+        echo '<form action = "' . $base_href . 'admin/bills_committees/remove_bills_committees.php" method="post">';
         echo '<input type="hidden" id="bl_id" name="bl_id" value = ' . $bill->get_bill_id() . '>';
         echo '<input type="hidden" id="co_id" name="co_id" value = ' . $committee->get_id() . '>';
         echo '<input type="submit" value="Remove" name = "submit">';
@@ -19,7 +19,7 @@ foreach ($committees as $committee) {
     }
 
 
-    echo '<form action = "update_bills_committees.php" method="post">';
+    echo '<form action = "' . $base_href . 'admin/bills_committees/update_bills_committees.php" method="post">';
     echo '<input type="hidden" id="co_id" name="co_id" value = ' . $committee->get_id() . '>';
     echo '<label for="bl_id">Add Bill:</label><br>';
     echo '<select name = "bl_id" id="bl_id">';

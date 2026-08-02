@@ -14,7 +14,7 @@ if ($_POST["pa_id"] == -1) {
     $party = $da->get_party_by_id($_POST["pa_id"]);
 }
 
-echo '<form action = "update_party.php" method="post">';
+echo '<form action = "' . $base_href . 'admin/parties/update_party.php" method="post">';
 
 echo '<input type="hidden" id="pa_id" name="pa_id" value = ' . $party->get_id() . '>';
 

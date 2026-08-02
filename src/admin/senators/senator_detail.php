@@ -18,7 +18,7 @@ if ($_POST["se_id"] == -1) {
 }
 
 $parties = $da->get_all_parties();
-echo '<form action = "update_senator.php" method="post">';
+echo '<form action = "' . $base_href . 'admin/senators/update_senator.php" method="post">';
 
 echo '<input type="hidden" id="se_id" name="se_id" value = ' . $senator->get_id() . '>';
 

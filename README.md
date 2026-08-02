@@ -51,7 +51,9 @@ and memorable.
 | Frontend | JavaScript, HTML, CSS |
 | Backend | PHP |
 | Database | MySQL |
+| DevOps | Docker, Docker Compose |
 | Authentication | Role-based user authentication (RBAC) |
+|Architecture | Client-Server (Decoupled)|
 | Scale | Architected for MySQL maximum row capacity |
 
 ---
@@ -79,7 +81,7 @@ If you prefer running the app in containers, this project includes a Docker Comp
    ```
 3. From the project root, build and start the containers:
    ```bash
-   docker compose up --build -d
+   docker compose up -d
    ```
 4. Open the application in your browser at http://localhost/.
 5. The MySQL database is exposed on port 3307 and is initialized with the SQL script in the sql/init.sql file. The Docker setup uses the values from your .env file for the database connection. Update the defaults in .env before launching anything publicly.

@@ -48,11 +48,11 @@ function check_form(): array
     return [$pass, $error_text];
 }
 
-echo "<a href ='admin/'>Return Home</a>";
+echo "<a href ='" . $base_href . "admin/'>Return Home</a>";
 echo '<h1>Change Password</h1>';
 
 
-echo '<form action = "" method="post">';
+echo '<form action = "' . $base_href . 'admin/profile/change_password.php" method="post">';
 echo '<label for="og_pass">Origional Password:</label><br>';
 echo '<input type="password" id="og_pass" name="og_pass"><br>';
 echo '<label for="new_pass">New Password:</label><br>';

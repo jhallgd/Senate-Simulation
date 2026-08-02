@@ -3,9 +3,29 @@ $ROOT = dirname(__DIR__);
 require($ROOT . '/functions/data_access.php');
 $da = new data_access();
 
-if (!isset($_SESSION)) {
+$session_timeout_seconds = 1800;
+ini_set('session.gc_maxlifetime', (string) $session_timeout_seconds);
+$cookie_params = session_get_cookie_params();
+session_set_cookie_params([
+    'lifetime' => $session_timeout_seconds,
+    'path' => $cookie_params['path'],
+    'domain' => $cookie_params['domain'],
+    'secure' => $cookie_params['secure'],
+    'httponly' => $cookie_params['httponly'],
+    'samesite' => $cookie_params['samesite'] ?? 'Lax',
+]);
+
+if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
+
+if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity']) > $session_timeout_seconds) {
+    session_unset();
+    session_destroy();
+    session_start();
+}
+
+$_SESSION['last_activity'] = time();
 
 $base_href = '/';
 $configured_base = getenv('APP_BASE_PATH');

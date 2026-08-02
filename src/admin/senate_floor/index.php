@@ -53,13 +53,13 @@ $settings = $da->get_settings();
 
 
 if ($settings->get_start_session()) {
-    echo '<form action = "admin/senate_floor/" method="post">';
+    echo '<form action = "' . $base_href . 'admin/senate_floor/" method="post">';
     echo '<input type="hidden" id="st_start_session" name="st_start_session" value = 0>';
     echo '<input type="submit" value="End Session">';
     echo '</form>';
 
 } else {
-    echo '<form action = "admin/senate_floor/" method="post">';
+    echo '<form action = "' . $base_href . 'admin/senate_floor/" method="post">';
     echo '<input type="hidden" id="st_start_session" name="st_start_session" value = 1>';
     echo '<input type="submit" value="Start Session">';
     echo '</form>';
@@ -68,7 +68,7 @@ echo '<br>';
 
 $bills = $da->get_all_bills();
 
-echo '<form action = "admin/senate_floor/" method="post">';
+echo '<form action = "' . $base_href . 'admin/senate_floor/" method="post">';
 echo '<label for="st_active_bill">Selected Bill:</label><br>';
 echo '<select name = "st_active_bill" id="st_active_bill">';
 echo '<option value=0>None</option>';
@@ -86,7 +86,7 @@ echo '</form>';
 
 echo '<br>';
 
-echo '<form action = "admin/senate_floor/" method="post">';
+echo '<form action = "' . $base_href . 'admin/senate_floor/" method="post">';
 echo '<label for="clear_bill">Clear Bill Votes:</label><br>';
 echo '<select name = "clear_bill" id="clear_bill">';
 foreach ($bills as $bill) {

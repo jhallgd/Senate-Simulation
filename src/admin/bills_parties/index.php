@@ -12,7 +12,7 @@ foreach ($parties as $party) {
     $bills = $da->get_bills_by_pa_id($party->get_id());
     foreach ($bills as $bill) {
         echo '<p>' . $bill->get_bill_title() . '</p>';
-        echo '<form action = "update_bills_parties.php" method="post">';
+        echo '<form action = "' . $base_href . 'admin/bills_parties/update_bills_parties.php" method="post">';
         echo '<input type="hidden" id="pb_id" name="pb_id" value = ' . $bill->get_party_bill_id() . '>';
         echo '<label for="pvt_id">Party View:</label><br>';
         echo '<select name = "pvt_id" id="pvt_id">';

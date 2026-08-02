@@ -15,7 +15,7 @@ if ($_POST["bl_id"] == -1) {
     $bill = $da->get_bill_by_id($_POST["bl_id"]);
 }
 
-echo '<form action = "update_bill.php" method="post">';
+echo '<form action = "' . $base_href . 'admin/bills/update_bill.php" method="post">';
 
 echo '<input type="hidden" id="bl_id" name="bl_id" value = ' . $bill->get_bill_id() . '>';
 

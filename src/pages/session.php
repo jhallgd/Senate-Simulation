@@ -21,7 +21,7 @@ if (!isset($_SESSION['se'])) {
             $vote = $da->get_vote_by_se_bl_id($senator->get_id(), $bill->get_bill_id());
             $vote_types = $da->get_all_vote_types();
 
-            echo '<form method="post">';
+            echo '<form action="' . $base_href . 'pages/session.php" method="post">';
             foreach ($vote_types as $type) {
                 if (array_key_exists($type->get_id(), $_POST)) {
                     $new_vote = $vote->change_vote($type->get_id());

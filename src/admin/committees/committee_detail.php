@@ -13,7 +13,7 @@ if ($_POST["co_id"] == -1) {
     $committee = $da->get_committee_by_id($_POST["co_id"]);
 }
 
-echo '<form action = "update_committee.php" method="post">';
+echo '<form action = "' . $base_href . 'admin/committees/update_committee.php" method="post">';
 
 echo '<input type="hidden" id="co_id" name="co_id" value = ' . $committee->get_id() . '>';
 

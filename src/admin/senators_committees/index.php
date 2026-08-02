@@ -14,7 +14,7 @@ foreach ($committees as $committee) {
 
         echo '<table><tr>';
         echo '<td>' . $senator->get_full_name() . '</td>';
-        echo '<form action = "update_senators_committees.php" method="post">';
+        echo '<form action = "' . $base_href . 'admin/senators_committees/update_senators_committees.php" method="post">';
 
 
         echo '<input type="hidden" id="sc_id" name="sc_id" value = ' . $senator_id->get_id() . '>';
@@ -60,7 +60,7 @@ foreach ($unassigned_senators as $senator_id) {
 
     echo '<table><tr>';
     echo '<td>' . $senator->get_full_name() . '</td>';
-    echo '<form action = "update_senators_committees.php" method="post">';
+    echo '<form action = "' . $base_href . 'admin/senators_committees/update_senators_committees.php" method="post">';
 
     echo '<input type="hidden" id="sc_id" name="sc_id" value = ' . $senator_id->get_id() . '>';
     echo '<input type="hidden" id="sc_se_id" name="sc_se_id" value = ' . $senator->get_id() . '>';
