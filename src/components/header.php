@@ -6,14 +6,25 @@ $da = new data_access();
 $session_timeout_seconds = 1800;
 ini_set('session.gc_maxlifetime', (string) $session_timeout_seconds);
 $cookie_params = session_get_cookie_params();
-session_set_cookie_params([
-    'lifetime' => $session_timeout_seconds,
-    'path' => $cookie_params['path'],
-    'domain' => $cookie_params['domain'],
-    'secure' => $cookie_params['secure'],
-    'httponly' => $cookie_params['httponly'],
-    'samesite' => $cookie_params['samesite'] ?? 'Lax',
-]);
+if (PHP_VERSION_ID >= 70300) {
+    session_set_cookie_params([
+        'lifetime' => $session_timeout_seconds,
+        'path' => $cookie_params['path'],
+        'domain' => $cookie_params['domain'],
+        'secure' => $cookie_params['secure'],
+        'httponly' => $cookie_params['httponly'],
+        'samesite' => isset($cookie_params['samesite']) ? $cookie_params['samesite'] : 'Lax',
+    ]);
+} else {
+    $cookie_path = $cookie_params['path'] . '; samesite=Lax';
+    session_set_cookie_params(
+        $session_timeout_seconds,
+        $cookie_path,
+        $cookie_params['domain'],
+        $cookie_params['secure'],
+        $cookie_params['httponly']
+    );
+}
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
