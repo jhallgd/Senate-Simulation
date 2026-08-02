@@ -11,7 +11,7 @@ if (!isset($_SESSION['se'])) {
     foreach ($parties as $party) {
         echo '<h2 style="color:' . $party->get_party_color() . '">' . $party->get_party_name() . '</h2>';
         $da->create_bill_party_table($party->get_id());
-        echo '<a href = "../functions/actions/change_party.php?p='.$party->get_id().'"><button style="background-color:' . $party->get_party_color() . '">Join the ' . $party->get_party_name() . '</button></a>';
+        echo '<a href = "' . $base_href . 'functions/actions/change_party.php?p=' . $party->get_id() . '"><button style="background-color:' . $party->get_party_color() . '">Join the ' . $party->get_party_name() . '</button></a>';
     }
 }
 

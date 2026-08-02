@@ -16,7 +16,7 @@ if ($pa_id == 0 or $da->check_party_by_id($pa_id) == false) {
 }
 
 if ($pa_id == 0) {
-    echo '<script>window.location.replace("pages/join_party.php");</script>';
+    echo '<script>window.location.replace("' . $base_href . 'pages/join_party.php");</script>';
 } else {
     $party = $da->get_party_by_id($pa_id);
     $senator = $da->get_senator_by_id($_SESSION['se']);
@@ -29,9 +29,9 @@ if ($pa_id == 0) {
 ]);
 
     if ($da->update_senator($updated_senator)) {
-        echo '<script>window.location.replace("pages/user_profile.php");</script>';
+        echo '<script>window.location.replace("' . $base_href . 'pages/user_profile.php");</script>';
     } else {
-        echo '<script>window.location.replace("pages/join_party.php");</script>';
+        echo '<script>window.location.replace("' . $base_href . 'pages/join_party.php");</script>';
     }
 }
 echo '</div>';

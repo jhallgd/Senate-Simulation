@@ -30,7 +30,7 @@ class committees
     }
 
     public function get_agenda_url(): string{
-        return '<a href = /pages/agenda.php?c='.$this->id.'>Agenda</a>';
+        return '<a href = pages/agenda.php?c='.$this->id.'>Agenda</a>';
     }
 }
 
