@@ -10,6 +10,10 @@ body{
 	text-align: left;
 }
 
+:root {
+  --btn-height: 44px;
+}
+
 
 h1{
   text-align: center;
@@ -50,71 +54,82 @@ p{
 
 .vote_btn{
     width: 100%;
-    height: 70px;
+  height: var(--btn-height);
     border: none;
     color: white;
-    padding: 15px 32px;
+  padding: 0 16px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 20px;
+  font-size: 12pt;
     margin-bottom: 10px;
   }
 
 .yeaBtn{
 background-color: #00CD03; 
 	width: 100%;
-	height: 70px;
+	height: var(--btn-height);
   border: none;
   color: white;
-  padding: 15px 32px;
+  padding: 0 16px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 20px;
+	font-size: 12pt;
 	margin-bottom: 10px;
 }
 
 .nayBtn{
 background-color: #ff0011; 
 	width: 100%;
-	height: 70px;
+	height: var(--btn-height);
   border: none;
   color: white;
-  padding: 15px 32px;
+  padding: 0 16px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 20px;
+  font-size: 12pt;
 margin-bottom: 10px;
 }
 
 .excBtn{
 background-color: #52e0ff; 
 	width: 100%;
-	height: 70px;
+	height: var(--btn-height);
   border: none;
   color: black;
-  padding: 15px 32px;
+  padding: 0 16px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 20px;
+	font-size: 12pt;
 	margin-bottom: 10px;
 }
 
 button{
   cursor: pointer;
   width: 100%;
-	height: 70px;
+	height: var(--btn-height);
   border: none;
   color: black;
-  padding: 15px 32px;
+  padding: 0 16px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 20px;
+	font-size: 12pt;
 	margin-bottom: 10px;
+}
+
+input[type="submit"],
+input[type="button"],
+input[type="reset"] {
+  cursor: pointer;
+  height: var(--btn-height);
+  padding: 0 16px;
+  font-size: 12pt;
+  border: none;
+  border-radius: 10px;
 }
 
 .greenPartyBtn{
@@ -123,6 +138,84 @@ background-color: #31C905;
 
 .orangePartyBtn{
 background-color: #FF9209; 
+}
+
+/* Modern form controls */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="search"],
+input[type="url"],
+input[type="tel"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  min-height: 42px;
+  padding: 10px 12px;
+  border: 1px solid #c8d0db;
+  border-radius: 10px;
+  background-color: #ffffff;
+  color: #2e3440;
+  font-family: inherit;
+  font-size: 11pt;
+  line-height: 1.3;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 34px;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #556070 50%),
+    linear-gradient(135deg, #556070 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) calc(50% - 2px),
+    calc(100% - 12px) calc(50% - 2px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="url"]:focus,
+input[type="tel"]:focus,
+input[type="date"]:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #3f6ea4;
+  box-shadow: 0 0 0 3px rgba(63, 110, 164, 0.2);
+  background-color: #fcfdff;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #7b8593;
+}
+
+label {
+  display: inline-block;
+  margin-bottom: 4px;
+  color: #2f3742;
+  font-weight: 600;
 }
 
 /* Basic Table Style */
@@ -171,4 +264,50 @@ background-color: #FF9209;
 
 .center_box{
   text-align: center;
+}
+
+/* Admin table utilities */
+.adminTableWrap {
+  overflow-x: auto;
+}
+
+.adminTableWrap .basicTable {
+  margin-top: 8px;
+}
+
+.adminToolbar {
+  margin: 8px 0 16px;
+}
+
+.adminActions {
+  white-space: nowrap;
+}
+
+.adminActions a {
+  display: inline-block;
+  margin: 0 6px 0 0;
+}
+
+.adminInlineForm {
+  display: inline-block;
+  margin: 0 6px 0 0;
+}
+
+.adminInlineForm input[type="submit"],
+.adminToolbar input[type="submit"] {
+  padding: 0 12px;
+  height: var(--btn-height);
+  font-size: 11pt;
+  margin: 0;
+}
+
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+input[type="reset"]:hover {
+  cursor: pointer;
+}
+
+.adminSection {
+  margin-bottom: 28px;
 }
